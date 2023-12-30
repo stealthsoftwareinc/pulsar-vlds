@@ -1,0 +1,22 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "76388cd78560913812a26f6f44651f53",
+    "sha1": "91e1628251cf3ca90093ce9d0fe67e5b7dab3850",
+    "sha224": "1444ce4b107323fe8d6c9f6cf5f4ce7a2661289613127496b98f71a4",
+    "sha256": "e469bd39f936999f256002631003ff022a22951da9d5bd9789c7abfa9763a292",
+    "sha384": "11139aaea863dfff41d8ededd4c67300fbd4435c7cd8d39fdbbd3dcbd1e3f6db45e3d400f59406ce7f52f94e44a9beb5",
+    "sha512": "9c9e9dc57e55762afe1e7c72290ff8016e42aa368c735429a974ab519a6b22859ce371006764326c9672dd37a86f3755ddcfd703c23fce3631d28779de172d48"
+  },
+
+  "urls": [
+    "https://repo1.maven.org/maven2/org/bouncycastle/bcprov-jdk15on/1.69/bcprov-jdk15on-1.69.jar",
+    "https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.69/bcprov-jdk15on-1.69.jar",
+    "https://repo.jfrog.org/artifactory/repo1/org/bouncycastle/bcprov-jdk15on/1.69/bcprov-jdk15on-1.69.jar",
+    "https://repo.jenkins-ci.org/repo1/org/bouncycastle/bcprov-jdk15on/1.69/bcprov-jdk15on-1.69.jar",
+    "https://www.bouncycastle.org/download/bcprov-jdk15on-169.jar"
+  ]
+
+}

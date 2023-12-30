@@ -1,0 +1,109 @@
+//
+// Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+//
+// The above copyright notice and this permission notice (including
+// the next paragraph) shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// SPDX-License-Identifier: MIT
+//
+
+[#configuring_the_interserver_connections]
+= Configuring the interserver connections
+
+The PH, DB1, and DB2 servers must all be able to connect to each other.
+These connection settings are specified by the `interserver_connections`
+object in the configuration file.
+All members in the `interserver_connections` object are optional.
+The default values are as follows:
+
+.Default interserver connection settings
+[source,subs="{subs_source}"]
+----
+{
+  "interserver_connections": {
+    "ph": {
+      "host": "127.0.0.1",
+      "port": 19501
+    },
+    "db1": {
+      "host": "127.0.0.1",
+      "port": 19502
+    },
+    "db2": {
+      "host": "127.0.0.1",
+      "port": 19503
+    },
+    "listen": {
+      "host": "0.0.0.0",
+      "port": 19501 _if this server is the PH server_
+           _or_ 19502 _if this server is the DB1 server_
+           _or_ 19503 _if this server is the DB2 server_
+    }
+  }
+}
+----
+
+[IMPORTANT]
+====
+A listen host of `0.0.0.0` means to listen for incoming connections on
+all available IPv4 network interfaces.
+====
+
+The servers use different ports by default so they don't conflict with
+each other when running a test deployment with all servers on the same
+machine.
+When running a real deployment with every server on a different machine,
+it may be more convenient to use a single port for all of the servers.
+The following example shows how to do this with port 19501 and sample
+private network connections for the servers:
+
+.Using the same port for all servers
+[source,subs="{subs_source}"]
+----
+{
+  "interserver_connections": {
+    "ph": {
+      "host": "10.0.0.100",
+      "port": 19501
+    },
+    "db1": {
+      "host": "10.0.0.101",
+      "port": 19501
+    },
+    "db2": {
+      "host": "10.0.0.102",
+      "port": 19501
+    },
+    "listen": {
+      "host": "0.0.0.0",
+      "port": 19501
+    }
+  }
+}
+----
+
+A server never connects to itself, so specifying that information is
+actually unnecessary.
+For example, the PH server will never use `.interserver_connections.ph`,
+so it can safely be omitted from the PH server's configuration file.
+
+//

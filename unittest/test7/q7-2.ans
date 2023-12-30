@@ -1,0 +1,13 @@
+{
+  "numrows": 7,
+  "colnames": ["UserID","AdCustomer","Amount"],
+  "data": [
+    ["3838","Life Rafts",null]
+    ,["24680",null,"56.15"]
+    ,["112233","Arctic Delights",null]
+    ,["161616","Mike's Bikes",null]
+    ,["163247",null,"15.00"]
+    ,["27272727","Naan Shop","23.11"]
+    ,["6565656","Greenwich-wich",null]
+  ]
+}

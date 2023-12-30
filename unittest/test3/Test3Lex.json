@@ -1,0 +1,20 @@
+{
+  "Linking Col": "HouseID", 
+  "Bucket Size": 500,
+  "DB1 Name": "FamilyTbl", 
+  "DB2 Name": "IncomeTbl", 
+  "DB1 Col": [
+    { "Name": "HouseID", "Type": "int", "Signed":"false", "BitWidth":"30", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Occupants", "Type": "int", "Signed":"false", "BitWidth":"10", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Zip", "Type": "int", "Signed":"false", "BitWidth":"17", "FracWidth":"0","Domain": null }, 
+    { "Name": "Style", "Type": "string", "Signed":"true", "BitWidth":"320", "FracWidth":"0", "Domain": ["SF", "Condo", "Duplex", "Apt", "Town", "Ranch"] }
+  ], 
+  "DB2 Col": [
+    { "Name": "HouseID", "Type": "int", "Signed":"false", "BitWidth":"30", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Income", "Type": "decimal", "Signed":"false", "BitWidth":"41", "FracWidth":"7", "Domain": null }, 
+    { "Name": "Year", "Type": "decimal", "Signed":"false", "BitWidth":"14", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Bracket", "Type": "string", "Signed":"false", "BitWidth":"160", "FracWidth":"0", "Domain": ["Low", "Med", "High"] }
+  ]
+}
+
+

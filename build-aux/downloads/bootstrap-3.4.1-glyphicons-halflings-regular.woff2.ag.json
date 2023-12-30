@@ -1,0 +1,18 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "448c34a56d699c29117adc64c43affeb",
+    "sha1": "ca35b697d99cae4d1b60f2d60fcd37771987eb07",
+    "sha224": "43a9c191a6e8666beb34e7bfbd15cefb1f38e450c15b9c278eb5b1ec",
+    "sha256": "fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c",
+    "sha384": "efa612d887d0dea998a2d6e923e23b98d1604f6e222fe48b0ce5b84dab294a655a3c39856676f20ec7464ba02939d34e",
+    "sha512": "3811804f56ec3c82f0bef35de0a9250e546a1e357fb59e2784f610d638fec355a27b480e3f796243c0e3d3743be3eadda8f9064c2b5b49577e16b7e40efcdb83"
+  },
+
+  "urls": [
+    "https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/fonts/glyphicons-halflings-regular.woff2"
+  ]
+
+}

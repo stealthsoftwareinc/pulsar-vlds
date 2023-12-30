@@ -1,0 +1,1 @@
+/query?DB1Col=Zip+Style&DB2Col=Income+Year&DB1Condition1Col=DB1%2EStyle&DB1Condition1Op=%3D&DB1Condition1Exp=%27&DB1Condition1Rel=OR&DB2Condition2Col=DB2%2EBracket&DB2Condition2Op=%3D&DB2Condition2Exp=Med&DB2Condition2Rel=AND%3BDROP%20DATABASE%25TestADB%3B

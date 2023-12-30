@@ -1,0 +1,127 @@
+#! /bin/sh -
+#
+# Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following
+# conditions:
+#
+# The above copyright notice and this permission notice (including
+# the next paragraph) shall be included in all copies or
+# substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+# SPDX-License-Identifier: MIT
+#
+# This script bootstraps into Bash. The shebang is only for portability.
+# For more information, see the Bash library > Bootstrapping section of
+# the SST manual.
+#
+
+set -e || exit $?
+. src/bash/sst.bash
+
+sst_ag_start build-aux
+
+#-----------------------------------------------------------------------
+# Root .ag includes
+#-----------------------------------------------------------------------
+#
+# If an .ag file needs to be included and there's no more specific .ag
+# file in which to do it, then do it here.
+#
+
+sst_ag_include \
+  doc/manual/build.phony.ag \
+  doc/pages/build.phony.ag \
+  doc/readme/build.phony.ag \
+  src/html/build.phony.ag \
+  src/windows_portable_java/build.phony.ag \
+  src/windows_portable_native/build.phony.ag \
+;
+
+#-----------------------------------------------------------------------
+# Root distributed files
+#-----------------------------------------------------------------------
+#
+# If a file needs to be distributed (i.e., included in the distribution
+# archive) and there's no more specific .ag, .ac, or .am file in which
+# to do it, then do it here.
+#
+
+sst_am_distribute_if_not_dir \
+  LICENSE \
+  README.adoc \
+  build-aux/adock \
+  build-aux/gatbps-echo.sh \
+  build-aux/gatbps-gen-date.sh \
+  build-aux/gatbps-gen-date.sh.cache \
+  build-aux/gatbps-gen-version.sh \
+  build-aux/gatbps-gen-version.sh.cache \
+  build-aux/pulsar-vlds.srcdir \
+  install/**/* \
+  src/bash/include/**/* \
+  src/bash/sst.bash \
+  src/install/**/* \
+  sst.bash \
+  unittest/** \
+;
+
+#-----------------------------------------------------------------------
+
+autogen_am_var_append EXTRA_DIST \
+  doc/windows/**/* \
+  src/cmd/**/* \
+  src/sh/**/* \
+;
+
+sst_ajh_download build-aux/downloads
+sst_ajh_gitbundle build-aux/gitbundles
+
+sst_ajh_java_library \
+  lib/pulsar-vlds.jar.ag.json \
+;
+
+#-----------------------------------------------------------------------
+
+for x in \
+  bin/pulsar-vlds-server \
+; do
+  sst_ajh_java_program_wrapper $x.wrappee/${x##*/}.ag.json
+  sst_ajh_build_tree_program_wrapper $x.ag.json
+done
+
+#-----------------------------------------------------------------------
+
+autogen_texinfo doc/pulsar-vlds.texi doc/texi doc/texi/pulsar-vlds
+
+sst_ag_finish
+
+#-----------------------------------------------------------------------
+# Run autoreconf
+#-----------------------------------------------------------------------
+
+#
+# Note that the Autoconf manual specifies the style of the -W option of
+# autoreconf as "-Wcategory[,category...]" [1]. This is why we write it
+# like "-Wall" instead of "-W all".
+#
+# [1] https://manuals.quinngrier.com/autoconf/2.71/autoconf.html?qref=403.65-403.70
+#
+
+x='autoreconf -f -i -v -Wall'
+sst_info "Running: $x"
+$x

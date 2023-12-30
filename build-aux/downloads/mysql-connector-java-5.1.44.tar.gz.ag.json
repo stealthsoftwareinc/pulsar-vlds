@@ -1,0 +1,18 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "526d4f3b2b127abcc25b575ece2c54d1",
+    "sha1": "8371d78706769c2c92e884755c2c96e7659c5228",
+    "sha224": "14029a908e09dd2844ce8e12d79fec4138a7577f65dba5ee9b7e0e4e",
+    "sha256": "7419a235c63f61c72b7e2e078e68350924ea95cffea3f5808d70e497410c8232",
+    "sha384": "8dae4b0073596cf61d620c04c3459e0f2fe5d5d89bcff7120b4459b881aa737ec89e8d47bbfe3ddbae9d0f177cf3aca7",
+    "sha512": "e85fca55c1ab34f8976f6275f8257b4130241981d435b728e2cfc5a29fdc023ca86c3817ca8a602b2ed148e1328367595326fec1d46970e0140b0a85427bc315"
+  },
+
+  "urls": [
+    "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.44.tar.gz"
+  ]
+
+}

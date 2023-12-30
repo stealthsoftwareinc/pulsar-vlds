@@ -1,0 +1,1 @@
+/query?DB1Col=Wt&DB2Col=Plan&DB1Condition1Col=DB1%2EDays&DB1Condition1Op=%3E&DB1Condition1Exp=10

@@ -1,0 +1,89 @@
+//
+// Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+//
+// The above copyright notice and this permission notice (including
+// the next paragraph) shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// SPDX-License-Identifier: MIT
+//
+
+include::common.adoc[]
+
+= PULSAR-VLDS
+
+include::../manual/partials/introduction.adoc[]
+
+== Building
+
+To build PULSAR-VLDS, you must be using Linux or Mac and you must
+install the following tools:
+
+* {empty}
+Docker version 24.0.0 or later.
+Installation instructions can be found at
+link:https://docs.docker.com/engine/install/[https://docs.docker.com/engine/install/].
+To check your installed version, run `docker --version`
+(example output: `Docker version 24.0.6`).
+
+* {empty}
+GNU Make version 4.2.1 or later.
+This can be installed on Ubuntu with `sudo apt install make`, or on a
+Mac with `brew install make`.
+To check your installed version, run `make --version`
+(example output: `GNU Make 4.3`).
+
+* {empty}
+XZ Utils.
+This can be installed on Ubuntu with `sudo apt install xz-utils`, or on
+a Mac with `brew install xz`.
+
+* {empty}
+A C compiler.
+This can be installed on Ubuntu with `sudo apt install gcc`, or on a Mac
+with `brew install gcc`.
+
+* {empty}
+Info-ZIP.
+This can be installed on Ubuntu with `sudo apt install zip`, or on a Mac
+with `brew install zip`.
+
+* {empty}
+SQLite3.
+This can be installed on Ubuntu with `sudo apt install sqlite3`, or on a
+Mac with `brew install sqlite3`.
+
+Next, run the following commands in a clean copy of this repository:
+
+----
+./configure
+make windows-portable-java
+----
+
+This will produce
+`pulsar-vlds-{PACKAGE_VERSION}-windows-portable-java.zip`,
+which can be used on any Windows machine with Java installed.
+
+== Acknowledgments
+
+include::../manual/partials/acknowledgments.adoc[]
+
+//

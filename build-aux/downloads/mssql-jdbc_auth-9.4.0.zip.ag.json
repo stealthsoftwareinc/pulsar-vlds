@@ -1,0 +1,18 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "5f6e9450cc6e225c731ae1d1e9d02d90",
+    "sha1": "be52fb736be321c4b2f19d459e9a32206e8b9d75",
+    "sha224": "aec2b8b1c0cbd29448a8b00c0b5735efd90e3cf5f9e78df39873a941",
+    "sha256": "8e308deff04320e859ef2361a77bf854f9deac6f682fc62ff3f9ca7ffffc2a9a",
+    "sha384": "e10c47318646e7f79f6e3bcba92fcedb362748da5afbfa4699956596bc0a8b1fe0ae667c105764dd1ada9b50412f9d0e",
+    "sha512": "ce826ea76d9ad76efc8f8883751cd284b65a47d6d961cfa79bde9cc1425916c9a36f33ae0268a4a9a561686484e50aa1fc16edcbb3b7135c7fe34ff1475a6ecd"
+  },
+
+  "urls": [
+    "https://github.com/microsoft/mssql-jdbc/releases/download/v9.4.0/mssql-jdbc_auth.zip"
+  ]
+
+}

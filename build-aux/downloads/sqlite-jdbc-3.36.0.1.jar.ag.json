@@ -1,0 +1,18 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "e518015bb5eac3ab54b5d78388c0b0e3",
+    "sha1": "7bd89ad11392210f8e86282004519b36d53cb9ee",
+    "sha224": "ec8e6798daae23d29deeb498c78bbcfda5c0aa3d5b881ebd1ec58070",
+    "sha256": "3c82074918a376c5cf34ca8520f0bca0359d4a3b393c75c6704a024623e2eedc",
+    "sha384": "9e3c112931bdcb49e0cf8e2879e352fbd66e87663daf26d7e5b7d03f0e2e7275944e4f2cd1c199f14ffb20ead02f031b",
+    "sha512": "52ca801664bb0a743a08d9d5da491ef7b4cf1eeaa35b1f279c5c2d5912aae01387bce6a4728be466cf82cdc1e52ad762bf56cef6aa1e5b04eccf8dc8afb4317b"
+  },
+
+  "urls": [
+    "https://github.com/xerial/sqlite-jdbc/releases/download/3.36.0.1/sqlite-jdbc-3.36.0.1.jar"
+  ]
+
+}

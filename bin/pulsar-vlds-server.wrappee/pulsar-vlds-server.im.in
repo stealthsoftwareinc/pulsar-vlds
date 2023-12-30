@@ -1,0 +1,66 @@
+#! /bin/sh -
+
+#
+# We use -ea in default_javaflags because it's a good default approach:
+# slower code with more diagnostics is often preferable to faster code
+# with fewer diagnostics. When we really do want to go as fast as
+# possible, we can use -da in JAVAFLAGS.
+#
+# We export CLASSPATH because this allows it to be overridden by using
+# -cp in JAVAFLAGS. We could accomplish the same thing by using -cp in
+# default_javaflags, but exporting CLASSPATH is better because it
+# doesn't have any quoting concerns.
+#
+
+case $JAVA in "")
+  JAVA=java
+esac
+readonly JAVA
+
+x=
+x=$x' -ea'
+default_javaflags=$x
+readonly default_javaflags
+
+readonly JAVAFLAGS
+
+x=
+x="$x $JAVA"
+x="$x -XshowSettings:property"
+x="$x -version"
+x="$x 2>&1"
+x=`eval "$x"` || exit $?
+case $x in *"path.separator = ;"*)
+  path_separator=";"
+;; *)
+  path_separator=:
+esac
+readonly path_separator
+
+case $CLASSPATH in ?*)
+  CLASSPATH=$CLASSPATH$path_separator
+esac
+case ${USE_BUILD_TREE-} in 1)
+  x='{@}abs_builddir{@}/lib/pulsar-vlds.jar.build_tree_classpath'
+  CLASSPATH=$CLASSPATH`cat "$x"` || exit $?
+;; *)
+  x='{@}javadir{@}/pulsar-vlds.jar.classpath'
+  CLASSPATH=$CLASSPATH`cat "$x"` || exit $?
+esac
+case $path_separator in ";")
+  CLASSPATH=`cygpath -l -p -w -- "$CLASSPATH"` || exit $?
+esac
+readonly CLASSPATH
+export CLASSPATH
+
+x=
+x="$x $JAVA"
+x="$x $default_javaflags"
+x="$x $JAVAFLAGS"
+x="$x "'com.stealthsoftwareinc.pulsarvlds.Server'
+case $# in 0)
+  :
+;; *)
+  x="$x \"\$@\""
+esac
+eval exec "$x"

@@ -1,0 +1,1 @@
+/query?DB1Col=Occupants+Style&DB2Col=Year&DB2Condition1Col=DB2%2EBracket&DB2Condition1Op=%3D&DB2Condition1Exp=%5C%22%5C%5C%5C%5C%22%22;

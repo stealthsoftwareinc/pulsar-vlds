@@ -1,0 +1,65 @@
+//
+// Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+//
+// The above copyright notice and this permission notice (including
+// the next paragraph) shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// SPDX-License-Identifier: MIT
+//
+
+[[java_config]]
+= Config
+
+
+* absolutePathPrefix: Speficies the path to something. It defaults to
+  the empty string "".
+* channelOutputBufferLimit
+* httpListenHost
+** Default:  "127.0.0.1"
+* httpListenPort: Specifies the port on which the HTTP server should
+  listen. It defaults to 8080.
+* ioThreadCount:  Specifies the number of number of threads used by
+  the party. It default to 8.
+* workerThreadCount
+** Default: 8
+* zombieCheckCooldown
+** Default: 300
+* zombieCheckThreshold
+** Default: 180
+* lexicon
+** Default: `null`
+** common
+*** modulus
+** db1
+*** table
+**** linking_column
+**** name
+**** columns (list)
+***** name
+***** type
+***** signed (will probably be changed or deleted)
+***** bit_width (same)
+***** frac_width (same)
+***** domain
+** db2
+*** [same as for db1]
+* local_party

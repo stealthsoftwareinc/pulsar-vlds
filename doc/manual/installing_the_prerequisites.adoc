@@ -1,0 +1,69 @@
+//
+// Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+//
+// The above copyright notice and this permission notice (including
+// the next paragraph) shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// SPDX-License-Identifier: MIT
+//
+
+[#installing_the_prerequisites]
+= Installing the prerequisites
+
+The only prerequisite required to run PULSAR-VLDS is the Java
+Development Kit (JDK), version 8 or later.
+There are two options to choose from: install the Oracle edition of the
+JDK, or install the OpenJDK edition of the JDK.
+
+The Oracle edition of the JDK can be downloaded and installed from
+link:https://www.oracle.com/java/technologies/javase-downloads.html[].
+If you are unsure of which version to install, it is recommended to
+install the latest version.
+Note that since Java 11, the Java Runtime Environment (JRE) has been
+merged into the JDK and is no longer provided as a separate download.
+If you choose to install a version that is older than Java 11, ensure
+that you install the JDK, not merely the JRE.
+If you are given a choice between 32-bit (x86) and 64-bit (x64), it is
+strongly recommended to choose x64 if you do not have a particular
+reason to choose x86.
+
+The OpenJDK edition of the JDK can be downloaded and installed from
+link:https://openjdk.java.net/[].
+The website does not provide any installers, and older versions are
+typically not available.
+Many Linux distributions provide the OpenJDK edition through their
+system package managers.
+Certain third-party package managers available for Windows and macOS
+also provide the OpenJDK edition.
+
+Windows::
+It is recommended to download and install the Oracle edition of the JDK
+from the link above.
+PULSAR-VLDS will automatically locate the Oracle edition of the JDK on
+your system without requiring any post-installation steps such as
+editing the `PATH` environment variable.
+
+Linux::
+It is recommended to ignore both of the above links and instead use the
+system package manager to install the OpenJDK edition of the JDK.
+
+//

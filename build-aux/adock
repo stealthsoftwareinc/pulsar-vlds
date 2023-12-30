@@ -1,0 +1,593 @@
+#! /bin/sh -
+#
+# The authors of this file have waived all copyright and
+# related or neighboring rights to the extent permitted by
+# law as described by the CC0 1.0 Universal Public Domain
+# Dedication. You should have received a copy of the full
+# dedication along with this file, typically as a file
+# named <CC0-1.0.txt>. If not, it may be available at
+# <https://creativecommons.org/publicdomain/zero/1.0/>.
+#
+
+LC_ALL=C
+readonly LC_ALL
+export LC_ALL
+
+# :r !subset.sh gatbps_barf gatbps_parse_opt gatbps_unknown_opt
+
+#-----------------------------------------------------------------------
+# gatbps_barf
+#-----------------------------------------------------------------------
+#
+# The authors of this section have waived all copyright and
+# related or neighboring rights to the extent permitted by
+# law as described by the CC0 1.0 Universal Public Domain
+# Dedication. You should have received a copy of the full
+# dedication along with this file, typically as a file
+# named <CC0-1.0.txt>. If not, it may be available at
+# <https://creativecommons.org/publicdomain/zero/1.0/>.
+#
+
+gatbps_barf() {
+
+  case $# in 0)
+
+    printf '%s\n' "$0: Error: Unknown error." >&2
+
+  ;; 1)
+
+    printf '%s\n' "$0: Error: ${1?}" >&2
+
+  ;; *)
+
+    printf '%s' "$0: Error: ${1?}" >&2
+    shift
+    printf ' %s' "$@" >&2
+    echo >&2
+
+  esac
+
+  exit 1
+
+}
+
+#-----------------------------------------------------------------------
+# gatbps_parse_opt
+#-----------------------------------------------------------------------
+#
+# The authors of this section have waived all copyright and
+# related or neighboring rights to the extent permitted by
+# law as described by the CC0 1.0 Universal Public Domain
+# Dedication. You should have received a copy of the full
+# dedication along with this file, typically as a file
+# named <CC0-1.0.txt>. If not, it may be available at
+# <https://creativecommons.org/publicdomain/zero/1.0/>.
+#
+
+gatbps_parse_opt() {
+
+  case $# in 0)
+    gatbps_barf \
+      "gatbps_parse_opt(): At least one <option> must be given." \
+    ;
+  esac
+
+  case ${1?} in -? | --*)
+    gatbps_parse_opt_prefix=
+  ;; *)
+    gatbps_parse_opt_prefix=${1?}
+    case ${gatbps_parse_opt_prefix?} in *[!0-9A-Z_a-z]* | [0-9]*)
+      gatbps_barf \
+        "gatbps_parse_opt(): Invalid <prefix>: " \
+        "${gatbps_parse_opt_prefix?}" \
+      ;
+    esac
+    shift
+  esac
+
+  case $# in 0)
+    gatbps_barf \
+      "gatbps_parse_opt(): At least one <option> must be given." \
+    ;
+  esac
+
+  gatbps_parse_opt_opts_n=0
+  while :; do
+    case $# in 0)
+      break
+    esac
+    case ${1?} in -? | --*)
+      eval gatbps_parse_opt_opts_${gatbps_parse_opt_opts_n?}='${1?}'
+      gatbps_parse_opt_opts_n=`
+        expr ${gatbps_parse_opt_opts_n?} + 1
+      ` || exit $?
+      shift
+    ;; *)
+      break
+    esac
+  done
+
+  case ${gatbps_parse_opt_opts_n?} in 0)
+    gatbps_barf \
+      "gatbps_parse_opt(): At least one <option> must be given." \
+    ;
+  esac
+
+  case $# in 0)
+    gatbps_barf \
+      "gatbps_parse_opt(): The argument list must be given." \
+    ;
+  esac
+
+  case ${1?} in required | forbidden | permitted)
+    gatbps_parse_opt_style=${1?}
+    shift
+  ;; *)
+    gatbps_parse_opt_style=required
+  esac
+
+  case $# in 0)
+    gatbps_barf \
+      "gatbps_parse_opt(): The argument list must be given." \
+    ;
+  esac
+
+  case ${1?} in :)
+    shift
+  ;; *)
+    gatbps_barf \
+      "gatbps_parse_opt(): Unexpected argument: ${1?}" \
+    ;
+  esac
+
+  gatbps_parse_opt_opts_i=0
+
+  while :; do
+
+    case ${gatbps_parse_opt_opts_i?} in ${gatbps_parse_opt_opts_n?})
+      break
+    esac
+
+    case $# in 0)
+      break
+    esac
+
+    eval gatbps_parse_opt_opt=\$gatbps_parse_opt_opts_${gatbps_parse_opt_opts_i?}
+
+    case ${1?} in "${gatbps_parse_opt_opt?}")
+      eval ${gatbps_parse_opt_prefix?}got=:
+      eval ${gatbps_parse_opt_prefix?}opt='${gatbps_parse_opt_opt?}'
+      case ${gatbps_parse_opt_style?} in required)
+        case $# in 1)
+          gatbps_barf \
+            "Option requires an argument: ${gatbps_parse_opt_opt?}" \
+          ;
+        esac
+        eval ${gatbps_parse_opt_prefix?}arg='${2?}'
+        eval ${gatbps_parse_opt_prefix?}pop=shift
+      ;; *)
+        unset ${gatbps_parse_opt_prefix?}arg
+        eval ${gatbps_parse_opt_prefix?}pop=
+      esac
+      return
+    esac
+
+    case ${gatbps_parse_opt_opt?} in --*)
+
+      case ${1?} in "${gatbps_parse_opt_opt?}"=*)
+        case ${gatbps_parse_opt_style?} in forbidden)
+          gatbps_barf \
+            "Option forbids an argument: ${gatbps_parse_opt_opt?}" \
+          ;
+        esac
+        gatbps_parse_opt_x='
+          {
+            if (seen_equals) {
+              print;
+            } else if (/=/) {
+              seen_equals = 1;
+              sub(/[^=]*=/, "");
+              print;
+            }
+          }
+        '
+        gatbps_parse_opt_x=`eval " ${AWK:-awk}"' \
+          "${gatbps_parse_opt_x?}" \
+          <<gatbps_parse_opt_eof
+${1?}
+gatbps_parse_opt_eof
+        '` || exit $?
+        eval ${gatbps_parse_opt_prefix?}got=:
+        eval ${gatbps_parse_opt_prefix?}opt='${gatbps_parse_opt_opt?}'
+        eval ${gatbps_parse_opt_prefix?}arg='${gatbps_parse_opt_x?}'
+        eval ${gatbps_parse_opt_prefix?}pop=
+        return
+      esac
+
+    ;; *)
+
+      case ${1?} in "${gatbps_parse_opt_opt?}"*)
+        case ${gatbps_parse_opt_opt?} in '-
+')
+          gatbps_parse_opt_x='
+            1 d
+            s/'\''/&\\&&/g
+            2 s/^/'\''/
+            $ s/$/'\''/
+          '
+        ;; *)
+          gatbps_parse_opt_x='
+            1 s/^..//
+            s/'\''/&\\&&/g
+            1 s/^/'\''/
+            $ s/$/'\''/
+          '
+        esac
+        gatbps_parse_opt_x=`eval " ${SED:-sed}"' \
+          "${gatbps_parse_opt_x?}" \
+          <<gatbps_parse_opt_eof
+${1?}
+gatbps_parse_opt_eof
+        '` || exit $?
+        eval ${gatbps_parse_opt_prefix?}got=:
+        eval ${gatbps_parse_opt_prefix?}opt='${gatbps_parse_opt_opt?}'
+        case ${gatbps_parse_opt_style?} in forbidden)
+          unset ${gatbps_parse_opt_prefix?}arg
+          eval ${gatbps_parse_opt_prefix?}pop=\"'
+            shift
+            set x -${gatbps_parse_opt_x?} \"\$@\"
+          '\"
+        ;; *)
+          eval ${gatbps_parse_opt_prefix?}arg=${gatbps_parse_opt_x?}
+          eval ${gatbps_parse_opt_prefix?}pop=
+        esac
+        return
+      esac
+
+    esac
+
+    gatbps_parse_opt_opts_i=`
+      expr ${gatbps_parse_opt_opts_i?} + 1
+    ` || exit $?
+
+  done
+
+  eval ${gatbps_parse_opt_prefix?}got=false
+  unset ${gatbps_parse_opt_prefix?}opt
+  unset ${gatbps_parse_opt_prefix?}arg
+  eval ${gatbps_parse_opt_prefix?}pop=
+
+}
+
+#-----------------------------------------------------------------------
+# gatbps_unknown_opt
+#-----------------------------------------------------------------------
+#
+# The authors of this section have waived all copyright and
+# related or neighboring rights to the extent permitted by
+# law as described by the CC0 1.0 Universal Public Domain
+# Dedication. You should have received a copy of the full
+# dedication along with this file, typically as a file
+# named <CC0-1.0.txt>. If not, it may be available at
+# <https://creativecommons.org/publicdomain/zero/1.0/>.
+#
+
+gatbps_unknown_opt() {
+
+  case $# in 1)
+    :
+  ;; *)
+    gatbps_barf \
+      "gatbps_unknown_opt(): Exactly one argument must be given." \
+    ;
+  esac
+
+  case ${1?} in --*)
+
+    printf '%s' "$0: Unknown option: " >&2
+
+    sed '
+      /=/ {
+        s/=.*//
+        q
+      }
+    ' <<gatbps_unknown_opt_eof >&2
+${1?}
+gatbps_unknown_opt_eof
+
+    exit 1
+
+  ;; -?*)
+
+    printf '%s: Unknown option: %.2s\n' "$0" "${1?}" >&2
+
+    exit 1
+
+  esac
+
+}
+
+#-----------------------------------------------------------------------
+
+detach=
+unset http_addr
+image=docker.io/quinngrier/adock
+unset live_addr
+unset name
+unset serve
+update=false
+
+case $# in 0)
+  set x
+;; *)
+  set x "$@"
+esac
+
+until shift && (exit ${1+1}0); do
+
+  #---------------------------------------------------------------------
+  # --
+  #---------------------------------------------------------------------
+
+  gatbps_parse_opt -- forbidden : "$@"
+  if ${got?}; then
+    eval "${pop?}"
+    shift
+    break
+  fi
+
+  #---------------------------------------------------------------------
+  # -a, --address
+  #---------------------------------------------------------------------
+
+  gatbps_parse_opt -a --address required : "$@"
+  if ${got?}; then
+    eval "${pop?}"
+    http_addr=${arg?}
+    case $http_addr in *,*)
+      r='.*,\(.*\)'
+      live_addr=`expr "x$http_addr" : "x$r"` || exit $?
+      r='\(.*\),.*'
+      http_addr=`expr "x$http_addr" : "x$r"` || exit $?
+    ;; *)
+      live_addr=35729
+    esac
+    case $http_addr in *:*)
+      :
+    ;; *)
+      http_addr=0.0.0.0:$http_addr
+    esac
+    case $live_addr in *:*)
+      :
+    ;; *)
+      r='\(.*\):.*'
+      live_addr=`expr "x$http_addr" : "x$r"`:$live_addr || exit $?
+    esac
+    continue
+  fi
+
+  #---------------------------------------------------------------------
+  # -d, --detach
+  #---------------------------------------------------------------------
+
+  gatbps_parse_opt -d --detach forbidden : "$@"
+  if ${got?}; then
+    eval "${pop?}"
+    detach=-d
+    continue
+  fi
+
+  #---------------------------------------------------------------------
+  # --image
+  #---------------------------------------------------------------------
+
+  gatbps_parse_opt --image required : "$@"
+  if ${got?}; then
+    eval "${pop?}"
+    image=${arg?}
+    continue
+  fi
+
+  #---------------------------------------------------------------------
+  # -n, --name
+  #---------------------------------------------------------------------
+
+  gatbps_parse_opt -n --name permitted : "$@"
+  if ${got?}; then
+    eval "${pop?}"
+    name=${arg-}
+    continue
+  fi
+
+  #---------------------------------------------------------------------
+  # -s, --serve
+  #---------------------------------------------------------------------
+
+  gatbps_parse_opt -s --serve forbidden : "$@"
+  if ${got?}; then
+    eval "${pop?}"
+    serve=
+    case ${http_addr+x} in '')
+      http_addr=0.0.0.0:8000
+      live_addr=0.0.0.0:35729
+    esac
+    continue
+  fi
+
+  #---------------------------------------------------------------------
+  # -u, --update
+  #---------------------------------------------------------------------
+
+  gatbps_parse_opt -u --update forbidden : "$@"
+  if ${got?}; then
+    eval "${pop?}"
+    update=:
+    continue
+  fi
+
+  #---------------------------------------------------------------------
+
+  break
+
+done
+
+readonly detach
+readonly http_addr
+readonly image
+readonly live_addr
+readonly name
+readonly serve
+readonly update
+
+#-----------------------------------------------------------------------
+#
+# We want any output files produced by the container to have the
+# expected ownership. To achieve this for both rootful and rootless
+# containers, we create an empty temporary directory on the host, mount
+# it into the container, observe its ownership inside the container, and
+# replicate that ownership onto any output files. Using a temporary file
+# instead of a directory would also work, but using a directory makes it
+# easier to get an absolute path.
+#
+
+# TODO: Use gatbps_csf for perfect output collection.
+
+tmp_dir=`mktemp -d` || exit $?
+case ${tmp_dir?} in /*)
+  :
+;; *)
+  tmp_dir=`cd "./${tmp_dir?}" && pwd` || exit $?
+esac
+readonly tmp_dir
+
+exit_trap='
+  if command -v shred >/dev/null 2>&1; then
+    find "${tmp_dir?}" -type f -exec shred {} \; || :
+  fi
+  rm -f -r "${tmp_dir?}" || :
+'
+readonly exit_trap
+
+trap "${exit_trap?}" EXIT || exit $?
+
+#-----------------------------------------------------------------------
+
+case ${DOCKER-} in '')
+  if command -v docker >/dev/null 2>&1; then
+    docker=docker
+  elif command -v podman >/dev/null 2>&1; then
+    docker=podman
+  else
+    docker=docker
+  fi
+esac
+readonly docker
+
+if ${update?}; then
+
+  eval " ${docker?}"' pull -- "${image?}"' || exit $?
+
+  url=https://raw.githubusercontent.com/quinngrier/adock/master/adock
+  readonly url
+
+  if command -v curl >/dev/null 2>&1; then
+    curl -L -S -f -m 10 -s "${url?}" >"${tmp_dir?}"/adock || exit $?
+  elif command -v wget >/dev/null 2>&1; then
+    wget -O "${tmp_dir?}"/adock -T 10 "${url?}" || exit $?
+  else
+    # TODO: Use gatbps_warn.
+    printf '%s\n' "$0: Warning: Cannot download and replace adock because neither curl nor wget is installed." >&2
+    exit
+  fi
+
+  chmod +x "${tmp_dir?}"/adock || exit $?
+
+  argv0_=$0
+  readonly argv0_
+  export argv0_
+
+  exit_trap_=${exit_trap?}
+  readonly exit_trap_
+  export exit_trap_
+
+  tmp_dir_=${tmp_dir?}
+  readonly tmp_dir_
+  export tmp_dir_
+
+  exec sh -c '
+
+    argv0=${argv0_?}
+    readonly argv0
+    unset argv0_
+
+    exit_trap=${exit_trap_?}
+    readonly exit_trap
+    unset exit_trap_
+
+    tmp_dir=${tmp_dir_?}
+    readonly tmp_dir
+    unset tmp_dir_
+
+    trap "${exit_trap?}" EXIT
+
+    mv -f -- "${tmp_dir?}"/adock "${argv0?}"
+
+  ' || exit $?
+
+fi
+
+#-----------------------------------------------------------------------
+
+test -t 0 && s=0 || s=$?
+case $s in 0)
+  t=-t
+;; 1)
+  t=
+;; *)
+  exit $s
+esac
+readonly t
+
+pwd=`pwd` || exit $?
+readonly pwd
+
+args=
+
+args=${args?}" ${DOCKER_FLAGS-}"
+
+args=${args?}' run --rm -i $t $detach -v "$pwd:$pwd" -w "$pwd"'
+
+args=${args?}' -v "${tmp_dir?}":/tmp_dir'
+
+args=${args?}' -e ADOCK_UMASK='`umask` || exit $?
+
+case ${serve+x} in ?*)
+  args=${args?}' -p "${http_addr?}:80" -p "${live_addr?}:35729"'
+  case ${name+x} in ?*)
+    case ${name?} in ?*)
+      args=${args?}' --name "${name?}"'
+    esac
+  ;; *)
+    args=${args?}' --name adock'
+  esac
+;; *)
+  case ${name-} in ?*)
+    args=${args?}' --name "${name?}"'
+  esac
+esac
+
+args=${args?}" ${DOCKER_RUN_FLAGS-}"
+
+args=${args?}' "${image?}"'
+
+case ${serve+x} in ?*)
+  args=${args?}' --serve "${http_addr?}" "${live_addr?}"'
+esac
+
+readonly args
+
+case $# in 0)
+  eval " $docker $args" || exit $?
+;; *)
+  eval " $docker $args"' "$@"' || exit $?
+esac

@@ -1,0 +1,15 @@
+{
+  "numrows": 6,
+  "colnames": ["PatientID","FName","LName","DOB","DOB","Deductible"],
+  "data": [
+    ["A001-251",null,null,null,"1990-01-09","2000"]
+    ,["A003-644","Bob","Jones","1970-11-21",null, null]
+    ,["A003-844",null,null,null,"1970-11-21", "5000"]
+    ,["A575-183",null,null,null,"1954-05-05","1000"]
+    ,["B776-009",null,null,null,"1988-03-26","0"]
+    ,["X228-463",null,null,null,"1997-07-14","0"]
+  ]
+}
+
+
+

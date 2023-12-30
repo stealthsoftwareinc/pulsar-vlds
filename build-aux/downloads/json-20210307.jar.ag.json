@@ -1,0 +1,21 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "f73834fd29b71806597a4c6ace15170a",
+    "sha1": "528c8df3757e8bcf151817b1d7b9b434f6aa08d5",
+    "sha224": "ec73352eea960be5dc461957fccc792cf5f09cd84612d7f088a36d7c",
+    "sha256": "e2c55b1fc13ce0f9b227a4981ee44157ca2c68616bc71f058ff83acaa632876e",
+    "sha384": "8cbcf8ebc214645b2b54a9545d5c081bf6bcb1b60bf9ac86694e8dfc9e63dab014817b619e5f25052b1560d006c01b9c",
+    "sha512": "794c56a89e1428fbfd564312ced35af970f376106914c84965c18c061a7a013453f58a1fb465dcd30978f05359792e5eb3012f05e046e3ad58a727232df2eb63"
+  },
+
+  "urls": [
+    "https://repo1.maven.org/maven2/org/json/json/20210307/json-20210307.jar",
+    "https://repo.maven.apache.org/maven2/org/json/json/20210307/json-20210307.jar",
+    "https://repo.jfrog.org/artifactory/repo1/org/json/json/20210307/json-20210307.jar",
+    "https://repo.jenkins-ci.org/repo1/org/json/json/20210307/json-20210307.jar"
+  ]
+
+}

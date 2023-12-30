@@ -1,0 +1,18 @@
+{
+  "Linking Col": "CustomerID", 
+  "Bucket Size": 500,
+  "DB1 Name": "Company1DB", 
+  "DB2 Name": "Company2DB", 
+  "DB1 Col": [
+    { "Name": "CustomerID", "Type": "string", "Signed":"true", "BitWidth":"192", "FracWidth":"0",  "Domain": null }, 
+    { "Name": "Lifetime_Spending", "Type": "decimal", "Signed":"false", "BitWidth":"41", "FracWidth":"7", "Domain": null }, 
+    { "Name": "Monthly_Spending", "Type": "decimal", "Signed":"false", "BitWidth":"41", "FracWidth":"7", "Domain": null }, 
+    { "Name": "Rewards_Savings", "Type": "int", "Signed":"false", "BitWidth":"41", "FracWidth":"7", "Domain": null }
+  ], 
+  "DB2 Col": [
+    { "Name": "CustomerID", "Type": "string", "Signed":"true","BitWidth":"192", "FracWidth":"0", "Domain": null },
+    { "Name": "Lifetime_Spending", "Type": "decimal", "Signed":"false", "BitWidth":"41", "FracWidth":"7", "Domain": null }, 
+    { "Name": "Monthly_Spending", "Type": "decimal", "Signed":"false", "BitWidth":"41", "FracWidth":"7", "Domain": null }, 
+    { "Name": "Rewards_Savings", "Type": "int", "Signed":"false", "BitWidth":"41", "FracWidth":"7", "Domain": null }
+  ]
+}

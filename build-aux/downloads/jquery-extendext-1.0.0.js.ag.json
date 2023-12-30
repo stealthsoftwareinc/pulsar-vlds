@@ -1,0 +1,19 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "0dbefbbd46b3cbf85896f24c9f27f184",
+    "sha1": "e7ca60ce4e9d039ec1f22b4a4995483d6cac4a12",
+    "sha224": "4515b775d0c3016fee450648794dd86f45455cdbc7334c4e41b3402a",
+    "sha256": "0f6eb997fc43d2a88d74ada1ed00ed50f6c08dde18f8a358d35ce6606ede6a2f",
+    "sha384": "8edb20af46f0f9e0b7da6b610b01ab15ae9bd9fd69f18c6f8a26ab26d09fa3e40d8b5ff98cab542e1d33a002893832fb",
+    "sha512": "5ae6da194c9419a252f5038a8b2c522da37c8c9f8105d7c6fe804d0b07170e25ee2f735451f30231741acebbf9f25b4793608ed71803f40e3f82181fcc92b11e"
+  },
+
+  "urls": [
+    "https://raw.githubusercontent.com/mistic100/jQuery.extendext/1.0.0/jquery-extendext.js",
+    "https://cdn.jsdelivr.net/npm/jquery-extendext@1.0.0/jquery-extendext.js"
+  ]
+
+}

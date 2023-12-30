@@ -1,0 +1,10 @@
+{
+
+  "handler": "sst_ajh_gitbundle",
+
+  "commit": "$(PACKAGE_VERSION_GIT)",
+  "urls": [
+    "$(abs_srcdir)",
+    "git@gitlab.stealthsoftwareinc.com:stealth/pulsar-vlds.git"
+  ]
+}

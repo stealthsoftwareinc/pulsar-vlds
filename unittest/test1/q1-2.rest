@@ -1,0 +1,1 @@
+/query?DB1Col=GradYear&DB2Col=Ann_Income+Inc_Year

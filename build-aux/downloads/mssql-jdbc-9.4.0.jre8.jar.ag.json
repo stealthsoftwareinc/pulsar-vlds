@@ -1,0 +1,18 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "3cbf0a526ad635547417ac01ca7a095e",
+    "sha1": "75a670b77ee3e63080d0af90962caa77bc3b7dff",
+    "sha224": "ee3b63383a9b7ee49a8517f80cc5f9ea6bd7706e5cf0bbb99fdbaeb8",
+    "sha256": "897674096ae0008f5407ae110560fb5726e885c5b22ca3c8b01486cda80e995e",
+    "sha384": "00a8e698a6dc59ddd462f12a40c501d53a7df89942ddab565901b52cd7eb27b4d3ec3fe97efedc42a395832860b724b4",
+    "sha512": "fa95cf5ab0a03db2838aeb39b5c07aed9948190b152b6d2a4339bf55daa98d515b7797650a5b3959f97460441f671b05d0867485edbe6869c5f32067cd5c0e96"
+  },
+
+  "urls": [
+    "https://github.com/microsoft/mssql-jdbc/releases/download/v9.4.0/mssql-jdbc-9.4.0.jre8.jar"
+  ]
+
+}

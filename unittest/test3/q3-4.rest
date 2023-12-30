@@ -1,0 +1,1 @@
+/query?DB1Col=Zip+Style&DB2Col=Income+Year&DB1Condition1Col=DB1%2EStyle&DB1Condition1Op=%3D&DB1Condition1Exp=SF&linkedCondition1Col=DB2%2EYear&linkedCondition1Op=is_not_null

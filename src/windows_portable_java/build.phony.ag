@@ -1,0 +1,214 @@
+#
+# Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following
+# conditions:
+#
+# The above copyright notice and this permission notice (including
+# the next paragraph) shall be included in all copies or
+# substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+# SPDX-License-Identifier: MIT
+#
+
+main() {
+
+  declare artifact_src
+  declare d
+  declare dst
+  declare dst_slug
+
+  sst_expect_source_path "$BASH_SOURCE"
+  d=$(sst_expect_prefix $BASH_SOURCE)
+  readonly d
+
+  dst='pulsar-vlds-$(PACKAGE_VERSION)-windows-portable-java'
+  readonly dst
+
+  dst_slug=$(sst_underscore_slug ${dst//[\$\(\)]/})
+  readonly dst_slug
+
+  artifact_src=artifact_$(sst_underscore_slug "$dst")_zip_src
+  readonly artifact_src
+
+  sst_am_distribute \
+    ${d}Dockerfile \
+    ${d}build.phony.ag \
+    ${d}db1.cfg \
+    ${d}db2.cfg \
+    ${d}manual.html \
+    ${d}ph.cfg \
+    ${d}server.cmd \
+  ;
+
+  sst_ihs <<<"
+
+    GATBPS_CP(
+      [${d}sst.tar.gz],
+      [build-aux/downloads/sst.tar.gz])
+
+    GATBPS_CP(
+      [${d}pulsar-vlds.tar.gz],
+      [artifacts/\$(distdir).tar.gz])
+
+    GATBPS_CP([${d}db1.cmd], [${d}server.cmd])
+    GATBPS_CP([${d}db2.cmd], [${d}server.cmd])
+    GATBPS_CP([${d}ph.cmd], [${d}server.cmd])
+    GATBPS_CP([${d}lexicon.cfg], [unittest/test1/common.cfg])
+
+    GATBPS_CP(
+      [artifacts/$dst.zip],
+      [\$($artifact_src)])
+
+  " | sst_ac_append
+
+  sst_ihs <<<"
+
+    ${d}sample/db1.sqlite3: unittest/test1/Test1DB1.sql.10
+    	\$(AM_V_at)\$(GATBPS_RECIPE_MARKER_TOP)
+    	\$(AM_V_GEN)\$(GATBPS_V_NOP)
+    	\$(AM_V_at)rm -f -r \$@ \$@\$(TSUF)*
+    	\$(AM_V_at)\$(MKDIR_P) \$(@D)
+    	\$(AM_V_at)sqlite3 \$@\$(TSUF) <unittest/test1/Test1DB1.sql.10
+    	\$(AM_V_at)mv -f \$@\$(TSUF) \$@
+    	\$(AM_V_at)\$(GATBPS_RECIPE_MARKER_BOT)
+    GATBPS_MOSTLYCLEANFILES += ${d}sample/db1.sqlite3/clean
+
+    ${d}sample/db2.sqlite3: unittest/test1/Test1DB2.sql.10
+    	\$(AM_V_at)\$(GATBPS_RECIPE_MARKER_TOP)
+    	\$(AM_V_GEN)\$(GATBPS_V_NOP)
+    	\$(AM_V_at)rm -f -r \$@ \$@\$(TSUF)*
+    	\$(AM_V_at)\$(MKDIR_P) \$(@D)
+    	\$(AM_V_at)sqlite3 \$@\$(TSUF) <unittest/test1/Test1DB2.sql.10
+    	\$(AM_V_at)mv -f \$@\$(TSUF) \$@
+    	\$(AM_V_at)\$(GATBPS_RECIPE_MARKER_BOT)
+    GATBPS_MOSTLYCLEANFILES += ${d}sample/db2.sqlite3/clean
+
+    ${d}mssql-jdbc_auth-9.4.0.x64.dll: build-aux/downloads/mssql-jdbc_auth-9.4.0.zip
+    	\$(AM_V_at)\$(GATBPS_RECIPE_MARKER_TOP)
+    	\$(GATBPS_V_UNZIP)\$(GATBPS_V_NOP)
+    	\$(AM_V_at)rm -f -r \$@ \$@\$(TSUF)*
+    	\$(AM_V_at)\$(MKDIR_P) \$(@D)
+    	\$(AM_V_at)\$(UNZIP) \
+    	  -p \
+    	  build-aux/downloads/mssql-jdbc_auth-9.4.0.zip \
+    	  mssql-jdbc_auth/mssql-jdbc_auth/x64/mssql-jdbc_auth-9.4.0.x64.dll \
+    	  >\$@\$(TSUF) \
+    	;
+    	\$(AM_V_at)mv -f \$@\$(TSUF) \$@
+    	\$(AM_V_at)\$(GATBPS_RECIPE_MARKER_BOT)
+    GATBPS_MOSTLYCLEANFILES += ${d}mssql-jdbc_auth-9.4.0.x64.dll/clean
+
+    $dst: ${d}Dockerfile
+    $dst: ${d}db1.cfg
+    $dst: ${d}db1.cmd
+    $dst: ${d}db2.cfg
+    $dst: ${d}db2.cmd
+    $dst: ${d}lexicon.cfg
+    $dst: ${d}manual.html
+    $dst: ${d}mssql-jdbc_auth-9.4.0.x64.dll
+    $dst: ${d}ph.cfg
+    $dst: ${d}ph.cmd
+    $dst: ${d}pulsar-vlds.tar.gz
+    $dst: ${d}sample/db1.sqlite3
+    $dst: ${d}sample/db2.sqlite3
+    $dst: ${d}sst.tar.gz
+    $dst: doc/\$(PACKAGE_TARNAME)-\$(PACKAGE_VERSION)-manual.tar.xz
+    	\$(AM_V_at)\$(GATBPS_RECIPE_MARKER_TOP)
+    	\$(AM_V_GEN)\$(GATBPS_V_NOP)
+    	\$(AM_V_at)rm -f -r \$@ \$@\$(TSUF)*
+    	\$(AM_V_at)\$(MKDIR_P) \$(@D)
+    	\$(AM_V_at)( : \\
+    	  && x=pulsar-vlds.tmp\$\$\$\$ \\
+    	  && \$(DOCKER) build \$(DOCKER_BUILD_FLAGS) \\
+    	       --tag \$\$x \\
+    	       ${d}. \\
+    	  && \$(DOCKER) rm -f \$\$x \\
+    	  && \$(DOCKER) create --name \$\$x \$\$x \\
+    	  && \$(DOCKER) cp \$\$x:/x/out \$@\$(TSUF) \\
+    	  && \$(DOCKER) rm -f \$\$x \\
+    	)
+    	\$(AM_V_at)(cd \$@\$(TSUF) && tar xJ) <doc/\$(PACKAGE_TARNAME)-\$(PACKAGE_VERSION)-manual.tar.xz
+    	\$(AM_V_at)mkdir \\
+    	  \$@\$(TSUF)/home \\
+    	  \$@\$(TSUF)/sample \\
+    	  \$@\$(TSUF)/tmp \\
+    	;
+    	\$(AM_V_at)\$(MKDIR_P) \\
+    	  \$@\$(TSUF)/usr/local/lib \\
+    	;
+    	\$(AM_V_at)cp \\
+    	  ${d}db1.cfg \\
+    	  ${d}db1.cmd \\
+    	  ${d}db2.cfg \\
+    	  ${d}db2.cmd \\
+    	  ${d}lexicon.cfg \\
+    	  ${d}manual.html \\
+    	  ${d}ph.cfg \\
+    	  ${d}ph.cmd \\
+    	  \$@\$(TSUF) \\
+    	;
+    	\$(AM_V_at)cp \\
+    	  ${d}sample/db1.sqlite3 \\
+    	  ${d}sample/db2.sqlite3 \\
+    	  \$@\$(TSUF)/sample \\
+    	;
+    	\$(AM_V_at)cp \\
+    	  ${d}mssql-jdbc_auth-9.4.0.x64.dll \\
+    	  \$@\$(TSUF)/usr/local/lib \\
+    	;
+    	\$(AM_V_at)touch \$@\$(TSUF)
+    	\$(AM_V_at)mv -f \$@\$(TSUF) \$@
+    	\$(AM_V_at)\$(GATBPS_RECIPE_MARKER_BOT)
+
+    GATBPS_MOSTLYCLEANFILES += $dst/clean
+
+    ${dst_slug}_zip_prereqs = $dst
+
+    $dst.zip: \$(${dst_slug}_zip_prereqs)
+    	\$(AM_V_at)\$(GATBPS_RECIPE_MARKER_TOP)
+    	\$(GATBPS_V_ZIP)\$(GATBPS_V_NOP)
+    	\$(AM_V_at)rm -f -r \$@\$(TSUF)* \$@
+    	\$(AM_V_at)(cd \$(?D) && \$(ZIP) -r - \$(?F)) >\$@\$(TSUF)
+    	\$(AM_V_at)mv -f \$@\$(TSUF) \$@
+    	\$(AM_V_at)rm -f -r \$@\$(TSUF)*
+    	\$(AM_V_at)\$(GATBPS_RECIPE_MARKER_BOT)
+
+    GATBPS_MOSTLYCLEANFILES += $dst.zip/clean
+
+    windows-portable-java: FORCE
+    windows-portable-java: $dst.zip
+
+    $artifact_src = $dst.zip
+    artifacts/$dst.zip/src: FORCE
+    	@echo $artifact_src
+
+    artifacts/pulsar-vlds-VERSION-windows-portable-java.zip: FORCE
+    artifacts/pulsar-vlds-VERSION-windows-portable-java.zip: artifacts/$dst.zip
+
+  " | sst_am_append
+
+  sst_ihs <<<'
+
+    windows-portable-java: FORCE '$dst'.zip
+
+  ' | sst_am_append
+
+}
+
+main

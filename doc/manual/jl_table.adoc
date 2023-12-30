@@ -1,0 +1,37 @@
+//
+// Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+//
+// The above copyright notice and this permission notice (including
+// the next paragraph) shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// SPDX-License-Identifier: MIT
+//
+
+[[jl_table]]
+= Table
+
+* `Dbinfo`
+* `JdbcName` A `com.stealthsoftwareinc.sst.JdbcName` object that consists of two instances of https://docs.oracle.com/javase/8/docs/api/java/lang/String.html[java.lang.String], one (denoted `name`) used as the external name of that table for all parties to identify it, and one (denoted `underlyingName`) used as an internal name of the table used only by the party owning that table.
+* `Columns`: A https://docs.oracle.com/javase/8/docs/api/java/util/Map.html[java.util.Map] from the name of the column (as a https://docs.oracle.com/javase/8/docs/api/java/lang/String.html[java.lang.String]) to a xref:jl_column.adoc#jl_column[Column].
+* `linkingColumn`: A xref:jl_column.adoc#jl_column[Column] storing the column in the table that will be used as the join key when combining columns from this table with another table, possibly with help by another party involved in the computation.
+
+

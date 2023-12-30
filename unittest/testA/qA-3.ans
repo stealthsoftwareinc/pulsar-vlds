@@ -1,0 +1,11 @@
+{
+  "numrows": 5,
+  "colnames": ["HouseID","Occupants","Style","Year"],
+  "data": [
+    ["1627248", "2", "Duplex", null]
+    ,["51647", "3", "SF", null]
+    ,["664378", "1", "Ranch", null]
+    ,["3199672", "3", "Condo", null]
+    ,["47835435", "5", "SF", null]
+  ]
+}

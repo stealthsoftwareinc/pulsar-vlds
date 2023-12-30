@@ -1,0 +1,10 @@
+{
+  "numrows": 4,
+  "colnames": ["CustomerID", "Lifetime_Spending", "Lifetime_Spending"],
+  "data": [
+    ["000001",null,"1500.31"]
+    ,["000003",null,"70.00"]
+    ,["000004","10.00",null]
+    ,["000005",null,"6233.19"]
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "numrows": 5,
+  "colnames": ["HouseID","Occupants","Income"],
+  "data": [
+    ["51647","3",null]
+    ,["664378","1",null]
+    ,["1627248","2",null]
+    ,["3199672","3",null]
+    ,["47835435","5",null]
+  ]
+}

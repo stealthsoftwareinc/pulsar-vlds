@@ -1,0 +1,13 @@
+{
+  "numrows": 7,
+  "colnames": ["CaseID","Degree"],
+  "data":[
+    ["117",null]
+    ,["290",null]
+    ,["473",null]
+    ,["635",null]
+    ,["1570",null]
+    ,["2352",null]
+    ,["2501",null]
+  ]
+}

@@ -1,0 +1,7 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "type": "copy",
+  "file": "build-aux/downloads/mysql-connector-java-8.0.17.tar.gz"
+}

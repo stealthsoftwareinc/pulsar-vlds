@@ -1,0 +1,1 @@
+/query?DB1Col=Income&DB2Col=School+GradYear&DB2Condition1Col=DB2%2EDegree&DB2Condition1Op=%3D&DB2Condition1Exp=1

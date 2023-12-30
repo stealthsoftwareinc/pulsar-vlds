@@ -1,0 +1,1 @@
+/query?DB1Col=Ann_Income&DB2Col=Degree+School

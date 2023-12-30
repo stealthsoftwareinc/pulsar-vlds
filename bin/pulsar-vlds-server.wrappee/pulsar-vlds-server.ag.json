@@ -1,0 +1,8 @@
+{
+
+  "handler": "sst_ajh_java_program_wrapper",
+
+  "class": "com.stealthsoftwareinc.pulsarvlds.Server",
+  "jar": "lib/pulsar-vlds.jar"
+
+}

@@ -1,0 +1,11 @@
+{
+  "numrows": 5,
+  "colnames": ["PatientID","Wt","Plan"],
+  "data": [
+    ["A001-251","106","PPO-1"]
+    ,["A575-183","146","HMO-2"]
+    ,["A003-844",null,"PPO-2"]
+    ,["B776-009",null,"HMO-1"]
+    ,["X228-463",null,"HMO-1"]
+  ]
+}

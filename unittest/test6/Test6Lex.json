@@ -1,0 +1,22 @@
+{
+  "Linking Col": "GuestID", 
+  "Bucket Size": 500,
+  "DB1 Name": "AirlineTbl", 
+  "DB2 Name": "HotelTbl", 
+  "DB1 Col": [
+    { "Name": "GuestID", "Type": "int", "Signed":"false", "BitWidth":"24", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Flight", "Type": "string", "Signed":"true", "BitWidth":"320", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Date", "Type": "string", "Signed":"false", "BitWidth":"320", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Points", "Type": "int", "Signed":"false", "BitWidth":"34", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Price", "Type": "decimal", "Signed":"false", "BitWidth":"37", "FracWidth":"7", "Domain": null }
+  ], 
+  "DB2 Col": [
+    { "Name": "GuestID", "Type": "int", "Signed":"false", "BitWidth":"24", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Date", "Type": "string", "Signed":"false", "BitWidth":"320", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Nights", "Type": "int", "Signed":"false", "BitWidth":"14", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Price", "Type": "decimal", "Signed":"false", "BitWidth":"37", "FracWidth":"7", "Domain": null }, 
+    { "Name": "Points", "Type": "int", "Signed":"false", "BitWidth":"34", "FracWidth":"0", "Domain": null }
+
+  ]
+}
+

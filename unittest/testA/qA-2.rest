@@ -1,0 +1,1 @@
+/query?DB1Col=Occupants&DB2Col=Income&DB2Condition1Col=DB2%2EBracket&DB2Condition1Op=%3D&DB2Condition1Exp=%27%22%60%3BSELECT%201%3B

@@ -1,0 +1,1 @@
+/query?DB1Col=Lifetime_Spending+Rewards_Savings&DB2Col=Lifetime_Spending+Rewards_Savings&DB1Condition1Col=DB1%2ELifetime_Spending&DB1Condition1Op=%3E&DB1Condition1Exp=1000&DB2Condition2Col=DB2%2ERewards_Savings&DB2Condition2Op=%3E&DB2Condition2Exp=0&DB2Condition2Rel=OR

@@ -1,0 +1,22 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "f6545cefd9d9276ead4b3ec321c7f995",
+    "sha1": "c3edf93d346e97f64f041e448e7455c39c7eff64",
+    "sha224": "f1d2847c90d071e197b895b95d278d875e6a55af2d586d214f8f321b",
+    "sha256": "29e40e2466d040d82a6f0e99635d0bc2bba3a94251cf7939cf0b69321caefc09",
+    "sha384": "1ed568e116e35884c30aefcdbb2dab3ba4d33cd8bbefc24ddb4069481204f108ab3d2cd2f02ddf33ec3350fd2576e4d9",
+    "sha512": "03df063250611bd4361478e09ec4adeb7571b948498ac83a3f7d74db156883d041a3638d187093dcb945d7864499edc818d8861365336d49eca88664300f459a"
+  },
+
+  "urls": [
+    "https://repo1.maven.org/maven2/org/bouncycastle/bcutil-jdk15on/1.69/bcutil-jdk15on-1.69.jar",
+    "https://repo.maven.apache.org/maven2/org/bouncycastle/bcutil-jdk15on/1.69/bcutil-jdk15on-1.69.jar",
+    "https://repo.jfrog.org/artifactory/repo1/org/bouncycastle/bcutil-jdk15on/1.69/bcutil-jdk15on-1.69.jar",
+    "https://repo.jenkins-ci.org/repo1/org/bouncycastle/bcutil-jdk15on/1.69/bcutil-jdk15on-1.69.jar",
+    "https://www.bouncycastle.org/download/bcutil-jdk15on-169.jar"
+  ]
+
+}

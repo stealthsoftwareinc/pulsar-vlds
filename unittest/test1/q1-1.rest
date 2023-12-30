@@ -1,0 +1,1 @@
+/query?DB1Col=Degree+GradYear&DB2Col=Income+Quart+Inc_Year&DB1Condition1Col=DB1%2EGradYear&DB1Condition1Op=%3D&DB1Condition1Exp=2010

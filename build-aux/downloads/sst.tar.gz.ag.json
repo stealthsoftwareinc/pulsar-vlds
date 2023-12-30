@@ -1,0 +1,19 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "d037cb4628c49dfd6972ca0d70b64c27",
+    "sha1": "6efe41e373957669b8ee093c9ffec0bc8b1ee716",
+    "sha224": "6a193b53356fa2afb61f983976bb5c91cb430226229123d142e974ce",
+    "sha256": "51e864a1eb61e123fef9c5983d8fd07bc7cef0b49a0788a372fd4098725848e5",
+    "sha384": "8a5823dad40288117dbb6f6c3b3b51b75562da5b01a13a0d4b4f2bdfe5474be824c2c16edca71d0da9b90bf92c20d4a6",
+    "sha512": "7dafde9b4aece47ddf0995231b5d18de1a308380468d20c936a4e6d953a02e0e722463017dcce06b8615a7f41adf8330014383367145b7324c20386c17d3050c"
+  },
+
+  "urls": [
+    "https://github.com/stealthsoftwareinc/sst/raw/master/sst-0.39.0.tar.gz",
+    "git-archive://git@gitlab.stealthsoftwareinc.com:stealth/sst-artifacts.git${nl}master:${nl}2023/2023-09-22-0.39.0/sst-0.39.0.tar.gz"
+  ]
+
+}

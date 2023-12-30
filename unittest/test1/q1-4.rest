@@ -1,0 +1,1 @@
+/query?DB1Col=School+Sex+GradYear&DB2Col=Quart+Ann_Income+Inc_Year&DB1Condition1Col=DB1.School&DB1Condition1Op=%3D&DB1Condition1Exp=1&DB1Condition2Col=DB1.Sex&DB1Condition2Op=%3D&DB1Condition2Exp=2&DB1Condition2Rel=AND 

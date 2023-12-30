@@ -1,0 +1,1 @@
+/query?DB1Col=FName+LName+DOB&DB2Col=DOB+Deductible&DB1Condition1Col=DB1%2EDays&DB1Condition1Op=%3C&DB1Condition1Exp=5&DB1Condition1Rel=AND&Condition2Rel=OR

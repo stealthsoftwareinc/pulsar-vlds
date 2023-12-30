@@ -1,0 +1,76 @@
+#
+# Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following
+# conditions:
+#
+# The above copyright notice and this permission notice (including
+# the next paragraph) shall be included in all copies or
+# substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+# SPDX-License-Identifier: MIT
+#
+
+unset -v child
+unset -v d
+unset -v e1
+unset -v e2
+unset -v leaf
+
+sst_expect_source_path "$BASH_SOURCE"
+d=$(sst_get_prefix $BASH_SOURCE)
+
+e1='@(.adoc|.gawk)'
+e2='@(.ag|.ac|.am|.im.in|.in|.im|.m4|)'
+for leaf in ${d}**/*$e1$e2; do
+  sst_expect_source_path "$leaf"
+  sst_ag_process_leaf ${d%/} $leaf child
+done
+
+sst_am_distribute ${d}config.adoc
+
+#
+# Note that we don't pass "-a imagesdir=doc/readme/diagrams" to
+# asciidoctor, as this directory is conventionally hardcoded for every
+# diagram block in README.adoc. The reason for doing this is because the
+# directory must always be hardcoded for image:: directives anyway, so
+# hardcoding it everywhere in README.adoc is more consistent.
+#
+
+sst_ihs <<<"
+
+  ${d}diagrams:
+  	\$(AM_V_at)\$(GATBPS_RECIPE_MARKER_TOP)
+  	\$(AM_V_GEN)\$(GATBPS_V_NOP)
+  	\$(GATBPS_at)rm -f -r \$@\$(TSUF)* \$@
+  	\$(GATBPS_at)\$(MKDIR_P) \$@\$(TSUF)1
+  	\$(GATBPS_at)rm -f README.html
+  	\$(GATBPS_at)\$(MAKE) \$(AM_MAKEFLAGS) \\
+  	  ASCIIDOCTOR_FLAGS='-a readme_diagrams=' \\
+  	  README.html \\
+  	;
+  	\$(GATBPS_at)rm -f README.html
+  	\$(GATBPS_at)touch \$@\$(TSUF)1/.gitkeep
+  	\$(GATBPS_at)touch \$@\$(TSUF)1
+  	\$(GATBPS_at)mv -f \$@\$(TSUF)1 \$@
+  	\$(GATBPS_at)-rm -f -r \$@\$(TSUF)*
+  	\$(AM_V_at)\$(GATBPS_RECIPE_MARKER_BOT)
+
+  EXTRA_DIST += ${d}diagrams
+
+" | sst_am_append

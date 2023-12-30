@@ -1,0 +1,98 @@
+//
+// Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+//
+// The above copyright notice and this permission notice (including
+// the next paragraph) shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// SPDX-License-Identifier: MIT
+//
+
+[#installing_the_portable_windows_edition]
+= Installing the portable Windows edition
+
+The portable Windows edition of PULSAR-VLDS is distributed as a single
+ZIP file named `pulsar-vlds-{PACKAGE_VERSION}-windows-portable-java.zip`.
+To install it, simply extract the ZIP file anywhere you like.
+The ZIP file will extract to a single directory that contains the
+complete PULSAR-VLDS system.
+All data created by PULSAR-VLDS will be kept within the directory, and
+you can freely move the directory around and rename it.
+
+Inside the extracted directory, you'll find the following files and
+subdirectories:
+
+`db1.cmd`, `db2.cmd`, `ph.cmd`::
+These batch files run each of the three parties.
+You can double-click on any of these files to run the corresponding
+party, or you can run them from the command line.
+
+`db1.cfg`, `db2.cfg`, `ph.cfg`::
+These are the main configuration files for each of the three parties.
+
+`lexicon.cfg`::
+This configuration file specifies the schemas of the database tables
+held by the DB1 and DB2 parties.
+All three parties read this configuration file, as all three parties
+need to know the schemas of both tables.
+
+`manual.html`::
+This page can be opened in a browser to view this manual.
+This is actually a convenience page that forwards the browser to
+`manual/index.html`, which is the underlying index page of the manual.
+
+`home/`::
+This directory is where PULSAR-VLDS will write all of its persistent
+data, including log files and any data stored by the web interface.
+
+`manual/`::
+This directory contains the underlying files of the manual.
+There's usually no need to look inside this directory, as you can view
+the manual by opening the `manual.html` convenience page.
+
+`sample/`::
+This directory contains two sample {SQLite} databases.
+There's usually no need to look inside this directory.
+
+`tmp/`::
+This directory will be used for temporary files.
+There's usually no need to look inside this directory.
+
+`usr/`::
+This directory contains the internal components of PULSAR-VLDS.
+There's usually no need to look inside this directory.
+
+This edition of PULSAR-VLDS supports running any subset of the three
+parties from a single copy of the extracted directory.
+All of the parties access mutually exclusive data in the `home/`
+directory, so there are no conflicts.
+
+== Sample deployment
+
+This edition of PULSAR-VLDS comes preconfigured with two sample {SQLite}
+databases, allowing a sample deployment to be run immediately out of the
+box: double-click on each of the `db1.cmd`, `db2.cmd`, and `ph.cmd`
+files to run the three parties in three terminal windows, then open the
+web interface by opening link:http://127.0.0.1:8080/[] in a browser.
+When you're done, press kbd:[Ctrl+C] in each of the terminal windows to
+stop the parties.
+
+//

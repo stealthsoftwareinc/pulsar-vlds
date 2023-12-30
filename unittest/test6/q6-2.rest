@@ -1,0 +1,1 @@
+/query?DB1Col=Points&DB2Col=Points&DB2Condition1Col=DB2%2EDate&DB2Condition1Op=%3E&DB2Condition1Exp=2019-04-01

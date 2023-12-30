@@ -1,0 +1,285 @@
+#
+# Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following
+# conditions:
+#
+# The above copyright notice and this permission notice (including
+# the next paragraph) shall be included in all copies or
+# substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+# SPDX-License-Identifier: MIT
+#
+
+f() {
+
+  declare d
+
+  sst_expect_source_path "$BASH_SOURCE"
+  d=$(sst_get_prefix $BASH_SOURCE)
+
+  leaves_var=pages_src_leaves
+  clean_var=pages_src_clean
+  src_var=pages_src
+  src_nodist_var=pages_src_nodist
+
+  sst_am_var_add $leaves_var
+  sst_am_var_add $clean_var
+  sst_am_var_add $src_var
+  sst_am_var_add $src_nodist_var
+
+  # TODO: Use sst_ag_process_leaf here. This code was actually an early
+  #       version of the repetitive code that led to the creation of
+  #       sst_ag_process_leaf.
+
+  for leaf in ${d}**/*; do
+    sst_expect_source_path "$leaf"
+    if [[ ! -f $leaf ]]; then
+      continue
+    fi
+    case $leaf in
+      *.phony.ag | *.phony.ac | *.phony.am)
+        sst_${leaf##*.}_include $leaf
+        continue
+      ;;
+      *.ag | *.ac | *.am)
+        sst_${leaf##*.}_include $leaf
+        child=${leaf%.*}
+        slug=$(sst_underscore_slug $child)
+        sst_am_var_add_unique_word $leaves_var "\$(${slug}_leaves)"
+        # TODO: sst_am_var_add_unique_word $clean_var $child/clean
+        sst_am_var_add_unique_word $src_nodist_var $child
+      ;;
+      *.im.in)
+        sst_ac_config_file $leaf
+        child=${leaf%.im.in}
+        sst_am_var_add_unique_word $leaves_var $leaf
+        # TODO: sst_am_var_add_unique_word $clean_var $child/clean
+        sst_am_var_add_unique_word $src_nodist_var $child
+      ;;
+      *.in | *.im)
+        sst_ac_config_file $leaf
+        child=${leaf%.*}
+        sst_am_var_add_unique_word $leaves_var $leaf
+        # TODO: sst_am_var_add_unique_word $clean_var $child/clean
+        sst_am_var_add_unique_word $src_nodist_var $child
+      ;;
+      *)
+        child=$leaf
+        sst_am_var_add_unique_word $leaves_var $leaf
+        sst_am_var_add_unique_word $src_var $child
+      ;;
+    esac
+  done
+
+  sst_am_var_add_unique_word \
+    pages_src_nodist \
+    ${d}'$(PACKAGE_TARNAME)-manual.tar.xz' \
+  ;
+
+  sst_ihs <<<'
+
+    GATBPS_TAR(
+      [$(pages_dst).tar],
+      [$(pages_dst)])
+
+    GATBPS_XZ(
+      [$(pages_dst).tar.xz],
+      [$(pages_dst).tar])
+
+    GATBPS_CP(
+      [doc/pages/$(PACKAGE_TARNAME)-manual.tar.xz],
+      [$(manual_dst).tar.xz])
+
+  ' | sst_ac_append
+
+  sst_ihs <<<'
+
+    EXTRA_DIST += $(pages_src)
+
+    ##----------------------------------------------------------------------
+    ##
+    ## The tag of the Jekyll Docker image to use.
+    ##
+    ## Do not change this to "latest", "stable", or any other tag that
+    ## changes over time, as those tags tend to break things in practice.
+    ## Only change this to a new, unchanging version tag after verifying
+    ## that it actually works.
+    ##
+
+    pages_jekyll_version = 4.2.0
+
+    ##------------------------------------------------------------------
+
+    doc_pages__site_leaves = $(pages_src_leaves)
+
+    doc/pages/_site: $(pages_src)
+    doc/pages/_site: $(pages_src_nodist)
+    	$(AM_V_at)$(GATBPS_RECIPE_MARKER_TOP)
+    	$(AM_V_GEN)$(GATBPS_V_NOP)
+    	$(AM_V_at)rm -f -r $@
+    	$(AM_V_at){ \
+    	  test -t 0 && t=-t || t=; \
+    	  readonly t; \
+    	  pwd=`pwd` || exit $$?; \
+    	  readonly pwd; \
+    	  case $${CI_DISPOSABLE_ENVIRONMENT+x} in x) \
+    	    chmod -R a+rw doc/pages || exit $$?; \
+    	  esac; \
+    	  $(DOCKER) run --rm -i $$t \
+    	    -v "$$pwd"/doc/pages:/srv/jekyll \
+    	    jekyll/jekyll:$(pages_jekyll_version) \
+    	    jekyll build \
+    	  || exit $$?; \
+    	}
+    	$(AM_V_at)touch $@
+    	$(AM_V_at)$(GATBPS_RECIPE_MARKER_BOT)
+
+    .PHONY: doc/pages/_site/clean
+    doc/pages/_site/clean: FORCE
+    doc/pages/_site/clean: $(pages_src_clean)
+    	-rm -f -r $(@D)
+    	-{ \
+    	  test -t 0 && t=-t || t=; \
+    	  readonly t; \
+    	  pwd=`pwd` || exit $$?; \
+    	  readonly pwd; \
+    	  case $${CI_DISPOSABLE_ENVIRONMENT+x} in x) \
+    	    chmod -R a+rw doc/pages || exit $$?; \
+    	  esac; \
+    	  $(DOCKER) run --rm -i $$t \
+    	    -v "$$pwd"/doc/pages:/srv/jekyll \
+    	    jekyll/jekyll:$(pages_jekyll_version) \
+    	    jekyll clean \
+    	  || exit $$?; \
+    	}
+
+    mostlyclean-local: doc/pages/_site/clean
+
+    ##------------------------------------------------------------------
+
+    pages_dst = doc/$(PACKAGE_TARNAME)-$(PACKAGE_VERSION)-pages
+
+    pages_dst_leaves = $(doc_pages__site_leaves)
+
+    $(pages_dst): doc/pages/_site
+    	$(AM_V_at)$(GATBPS_RECIPE_MARKER_TOP)
+    	$(AM_V_GEN)$(GATBPS_V_NOP)
+    	$(AM_V_at)rm -f -r $@ $@$(TSUF)*
+    	$(AM_V_at)$(MKDIR_P) $@$(TSUF)
+    	$(AM_V_at)rmdir $@$(TSUF)
+    	$(AM_V_at)cp -R doc/pages/_site $@$(TSUF)
+    	$(AM_V_at)touch $@$(TSUF)
+    	$(AM_V_at)mv -f $@$(TSUF) $@
+    	$(AM_V_at)$(GATBPS_RECIPE_MARKER_BOT)
+
+    GATBPS_MOSTLYCLEANFILES += $(pages_dst)/clean
+
+    ##------------------------------------------------------------------
+    ## GitHub pages site
+    ##------------------------------------------------------------------
+
+    docs: $(pages_dst_leaves)
+    	$(AM_V_at)$(GATBPS_RECIPE_MARKER_TOP)
+    	$(AM_V_GEN)$(GATBPS_V_NOP)
+    	$(AM_V_at)rm -f -r $@ $@$(TSUF)*
+    	$(AM_V_at)$(MAKE) $(pages_dst).tar.xz
+    	$(AM_V_at)$(XZ) -d <$(pages_dst).tar.xz >$@$(TSUF)1
+    	$(AM_V_at)$(MKDIR_P) $@$(TSUF)2
+    	$(AM_V_at)(cd $@$(TSUF)2 && $(TAR) x) <$@$(TSUF)1
+    	$(AM_V_at)cp -R $@$(TSUF)2/* $@$(TSUF)3
+    	$(AM_V_at)touch $@$(TSUF)3
+    	$(AM_V_at)mv -f $@$(TSUF)3 $@
+    	$(AM_V_at)$(GATBPS_RECIPE_MARKER_BOT)
+
+    GATBPS_MAINTAINERCLEANFILES += docs/clean
+
+    EXTRA_DIST += docs
+
+    ##------------------------------------------------------------------
+
+    pages_preview_host = 0.0.0.0
+    pages_preview_port = 4000
+    pages_preview_name = $$d-pages-preview
+
+    pages_livereload = 1
+    pages_livereload_port = 35729
+
+    pages_touch_all =
+
+    pages-preview: FORCE
+    pages-preview: $(pages_src)
+    pages-preview: $(pages_src_nodist)
+    	{ \
+    	  test -t 0 && t=-t || t=; \
+    	  readonly t; \
+    	  pwd=`pwd` || exit $$?; \
+    	  readonly pwd; \
+    	  d=`basename "$$pwd"` || exit $$?; \
+    	  readonly d; \
+    	  case $${CI_DISPOSABLE_ENVIRONMENT+x} in x) \
+    	    chmod -R a+rw doc/pages || exit $$?; \
+    	  esac; \
+    	\
+    	  case "$(pages_livereload)" in 1) \
+    	    f1="-p $(pages_preview_host):$(pages_livereload_port):35729"; \
+    	    f2="--livereload --livereload_port $(pages_livereload_port)"; \
+    	  ;; *) \
+    	    f1=; \
+    	    f2=; \
+    	  esac; \
+    	  readonly f1; \
+    	  readonly f2; \
+    	\
+    	  $(DOCKER) run --rm -i $$t \
+    	    -v "$$pwd"/doc/pages:/srv/jekyll \
+    	    -p $(pages_preview_host):$(pages_preview_port):4000 \
+    	    $$f1 \
+    	    --name "$(pages_preview_name)" \
+    	    jekyll/jekyll:$(pages_jekyll_version) \
+    	    jekyll serve $$f2 \
+    	  || exit $$?; \
+    	}
+
+    pages-update: FORCE
+    pages-update: $(pages_src_nodist)
+    	$(AM_V_at)$(GATBPS_RECIPE_MARKER_TOP)
+    	$(AM_V_at){ \
+    	  case "$(pages_touch_all)" in 1) \
+    	    for x in $(pages_src_nodist) ""; do \
+    	      case $$x in ?*) \
+    	        touch $$x || exit $$?; \
+    	      esac; \
+    	    done; \
+    	  esac; \
+    	}
+    	$(AM_V_at)$(GATBPS_RECIPE_MARKER_BOT)
+
+    ##------------------------------------------------------------------
+
+    .PHONY: pages
+    pages: FORCE
+    pages: doc/pages/_site
+
+    .PHONY: clean-pages
+    clean-pages: FORCE
+    clean-pages: doc/pages/_site/clean
+
+  ' | sst_am_append
+
+}; f

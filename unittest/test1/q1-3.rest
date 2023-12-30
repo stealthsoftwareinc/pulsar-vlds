@@ -1,0 +1,1 @@
+/query?DB1Col=School+Sex&DB2Col=Quart+Inc_Year&DB2Condition1Col=DB2%2EQuart&DB2Condition1Op=%3D&DB2Condition1Exp=2

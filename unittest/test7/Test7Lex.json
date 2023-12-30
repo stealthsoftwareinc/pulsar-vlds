@@ -1,0 +1,23 @@
+{
+  "Linking Col": "UserID", 
+  "Bucket Size": 500,
+  "DB1 Name": "Advertiser", 
+  "DB2 Name": "CCBank", 
+  "DB1 Col": [
+    { "Name": "UserID", "Type": "int", "Signed":"false", "BitWidth":"30", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Lati", "Type": "decimal", "Signed":"true", "BitWidth":"55", "FracWidth":"20", "Domain": null }, 
+    { "Name": "Longi", "Type": "decimal", "Signed":"true", "BitWidth":"55", "FracWidth":"20", "Domain": null }, 
+    { "Name": "Time", "Type": "int", "Signed":"false", "BitWidth":"70", "FracWidth":"0", "Domain": null}, 
+    { "Name": "AdCustomer", "Type": "string", "Signed":"true", "BitWidth":"640", "FracWidth":"0", "Domain": null}
+  ], 
+  "DB2 Col": [
+    { "Name": "UserID", "Type": "int", "Signed":"false", "BitWidth":"30", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Lati", "Type": "decimal", "Signed":"false", "BitWidth":"55", "FracWidth":"20", "Domain": null }, 
+    { "Name": "Longi", "Type": "decimal", "Signed":"false", "BitWidth":"55", "FracWidth":"20", "Domain": null }, 
+    { "Name": "Time", "Type": "int", "Signed":"false", "BitWidth":"67", "FracWidth":"0", "Domain": null }, 
+    { "Name": "Amount", "Type": "decimal", "Signed":"false", "BitWidth":"34", "FracWidth":"7", "Domain": null }
+
+  ]
+}
+
+

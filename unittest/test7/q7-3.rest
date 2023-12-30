@@ -1,0 +1,1 @@
+/query?DB1Col=AdCustomer+Time&DB2Col=&DB2Condition1Col=DB2%2EAmount&DB2Condition1Op=%3E&DB2Condition1Exp=20%2E56

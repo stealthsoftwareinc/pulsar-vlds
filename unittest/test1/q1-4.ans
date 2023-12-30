@@ -1,0 +1,10 @@
+{
+  "numrows": 3, 
+  "colnames": ["CaseID","School","Sex","GradYear","Quart","Ann_Income","Inc_Year"], 
+  "data":[
+["124000","1","2","2010","2","75000.00","2012"]
+,["123457",null,null,null,"1","130000.00","2013"]
+,["123000",null,null,null,"1","80000.00","2011"]
+
+  ]
+}

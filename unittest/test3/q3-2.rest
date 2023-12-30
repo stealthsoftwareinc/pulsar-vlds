@@ -1,0 +1,1 @@
+/query?DB1Col=Occupants&DB2Col=Income&DB2Condition1Col=DB2%2EYear&DB2Condition1Op=%3E%3D&DB2Condition1Exp=2015

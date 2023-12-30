@@ -1,0 +1,48 @@
+//
+// Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+//
+// The above copyright notice and this permission notice (including
+// the next paragraph) shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// SPDX-License-Identifier: MIT
+//
+
+PULSAR-VLDS demonstrates secure, privacy-protecting computation of statistics from sensitive data held in multiple government organizations.
+PULSAR-VLDS is a partnership between Stealth Software Technologies, a leader in privacy-enhancing technologies (PETs), and the Virginia Longitudinal Data System (VLDS), a pioneering collaboration among state agencies to produce better data for public policy.
+PULSAR-VLDS is an innovative application of Secure Multiparty Computation (MPC) to overcome the barriers to sharing data among agencies while protecting private information.
+Policy-makers frequently require statistics involving data from multiple sources.
+Although these reports would not compromise individual privacy, sharing data across agencies with varying regulations and legal limitations is expensive, time consuming, and often impossible.
+MPC uses cryptography to join and aggregate data from separate databases without releasing any private information.
+Each database owner controls the keys to their own data, and no unencrypted data is ever released.
+The PULSAR-VLDS platform uses new architectures and tools to overcome limitations of previous MPC technologies.
+PULSAR-VLDS provides:
+
+1. Strong data-privacy guarantees where unencrypted individual data is never shared or revealed to other agencies during computation process
+2. Accurate statistical results, because the outcome does not use inaccuracy (e.g., noise) to mask identities
+3. Immediate answers, because computations do not depend upon deidentifying and collecting data in a single place
+4. Efficiency and scalability, due to Stealth Software’s fast and innovative software
+
+PULSAR-VLDS also includes additional disclosure protections developed by VLDS for aggregate data.
+PULSAR-VLDS is designed to automate privacy protections in a modular manner that allows manual intervention where necessary.
+VLDS anticipates that the new platform will increase the number of state agencies willing to collaborate and will enable new policy-relevant statistics and analyses.
+
+//

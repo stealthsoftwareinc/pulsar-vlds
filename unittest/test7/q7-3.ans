@@ -1,0 +1,12 @@
+{
+  "numrows": 6,
+  "colnames": ["UserID","AdCustomer","Time"],
+  "data":[
+    ["3838","Life Rafts","1569001470"]
+    ,["24680","Sensor Repair",null]
+    ,["112233","Arctic Delights","1569013674"]
+    ,["161616","Mike's Bikes","1569102142"]
+    ,["6565656","Greenwich-wich","1569013674"]
+    ,["27272727","Naan Shop","1568124470"]
+  ]
+}

@@ -1,0 +1,1 @@
+/query?DB1Col=&DB2Col=Degree&DB2Condition1Col=DB2%2ESchool&DB2Condition1Op=%3D&DB2Condition1Exp=4

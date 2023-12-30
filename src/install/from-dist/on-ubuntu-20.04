@@ -1,0 +1,91 @@
+#! /bin/bash -
+#
+# Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following
+# conditions:
+#
+# The above copyright notice and this permission notice (including
+# the next paragraph) shall be included in all copies or
+# substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+# SPDX-License-Identifier: MIT
+#
+
+set -e; . src/bash/sst.bash
+
+sst_ubuntu_install_raw \
+  autoconf \
+  automake \
+  default-jdk \
+  default-jre \
+  g++ \
+  gcc \
+  git \
+  libmysqlclient-dev \
+  libtool \
+  m4 \
+  make \
+  openssl \
+  sshpass \
+  texinfo \
+  wget \
+;
+
+pulsar_vlds_urls=
+case ${CI_REPOSITORY_URL+is_set} in
+  ?*)
+    pulsar_vlds_urls='pulsar_vlds_urls="\$(abs_srcdir) $CI_REPOSITORY_URL"'
+  ;;
+esac
+readonly pulsar_vlds_urls
+
+eval ./configure \
+  "$pulsar_vlds_urls" \
+;
+
+# TODO: Use SST's install/on-ubuntu once it supports a proper triple
+#       state --with-netty.
+make build-aux/downloads/sst.tar.gz
+tar xzf build-aux/downloads/sst.tar.gz
+mv sst-*/ sst
+cd sst
+./configure --with-build-groups=java
+make install-java-jardeps-targets
+sudo make install-java-jardeps
+./configure --with-build-groups=java
+make
+sudo make install
+cd ..
+
+make install-java-jardeps-targets
+echo "Installing Java libraries..."
+sudo make install-java-jardeps
+
+make \
+  all \
+  java \
+;
+
+echo "Installing..."
+sudo sh -c '
+  make \
+    install \
+    install-java \
+  ;
+'

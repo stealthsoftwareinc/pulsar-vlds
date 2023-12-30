@@ -1,0 +1,20 @@
+{
+  "Linking Col": "CaseID", 
+  "Bucket Size": 500,
+  "DB1 Name": "StudentDB", 
+  "DB2 Name": "IncomeDB", 
+  "DB1 Col": [
+    {"Name":"CaseID", "Type":"int", "Signed":"false", "BitWidth":"34", "FracWidth":"0", "Domain": null}, 
+    {"Name":"Degree", "Type":"int", "Signed":"false", "BitWidth":"4", "FracWidth":"0", "Domain": ["1","2","3","4","5"]}, 
+    {"Name":"School", "Type":"int", "Signed":"false", "BitWidth":"4", "FracWidth":"0", "Domain": ["1","2","3","4","5"]}, 
+    {"Name":"Sex", "Type":"int", "Signed":"false", "BitWidth":"4", "FracWidth":"0", "Domain": ["1","2","3"]}, 
+    {"Name":"GradYear", "Type":"int", "Signed":"false", "BitWidth":"14", "FracWidth":"0", "Domain": null}
+  ], 
+  "DB2 Col": [
+    {"Name":"CaseID", "Type":"int", "Signed":"false", "BitWidth":"34", "FracWidth":"0", "Domain": null}, 
+    {"Name":"Income", "Type":"decimal", "Signed":"false", "BitWidth":"41", "FracWidth":"7", "Domain": null}, 
+    {"Name":"Quart", "Type":"int", "Signed":"false", "BitWidth":"4", "FracWidth":"0", "Domain": ["1","2","3","4"]}, 
+    {"Name":"Ann_Income", "Type":"decimal", "Signed":"false", "BitWidth":"41", "FracWidth":"7", "Domain": null}, 
+    {"Name":"Inc_Year", "Type":"int", "Signed":"false", "BitWidth":"14", "FracWidth":"0", "Domain": null}
+  ]
+}

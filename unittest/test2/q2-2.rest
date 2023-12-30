@@ -1,0 +1,1 @@
+/query?DB1Col=Rewards_Savings&DB2Col=Monthly_Spending+Rewards_Savings

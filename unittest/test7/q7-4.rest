@@ -1,0 +1,1 @@
+/query?DB1Col=Lati+Longi+Time&DB2Col=Lati+Longi+Time&linkedCondition1Col=DB1%2ELati&linkedCondition1Op=IS_NOT_NULL&linkedCondition2Col=DB2%2ELati&linkedCondition2Op=IS_NOT_NULL&linkedCondition2Rel=AND

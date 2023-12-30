@@ -1,0 +1,1 @@
+/query?DB1Col=School+Sex+GradYear&DB2Col=Quart+Ann_Income+Income&&&&Iv1Col=DB2.Quart&Agg1Func=Min&Agg1Col=DB2.Income&Agg2Func=Avg&Agg2Col=DB2.Income&Agg3Func=Max&Agg3Col=DB2.Income&Agg4Func=Stdev&Agg4Col=DB2.Income

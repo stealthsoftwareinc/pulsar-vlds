@@ -1,0 +1,1 @@
+/query?DB1Col=Days&DB2Col=Plan&DB2Condition1Col=DB2%2EDeductible&DB2Condition1Op=%3E&DB2Condition1Exp=1500

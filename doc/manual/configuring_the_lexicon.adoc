@@ -1,0 +1,171 @@
+//
+// Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+//
+// The above copyright notice and this permission notice (including
+// the next paragraph) shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// SPDX-License-Identifier: MIT
+//
+
+[#configuring_the_lexicon]
+= Configuring the lexicon
+
+The lexicon specifies the schemas of the databases held by the DB1 and
+DB2 servers along with several other parameters used by the interserver
+PULSAR-VLDS protocol.
+
+All servers must be given the same lexicon.
+The servers cross-check their lexicons at the start every pairwise
+interserver connection, and if they don't match, the connection is
+aborted.
+
+The lexicon is specified by the `lexicon` object in the configuration
+file.
+Within the `lexicon` object, the two databases are specified by the
+`db1` and `db2` objects, and all other parameters are specified by the
+`common` object.
+
+.Sample lexicon
+[source,subs="{subs_source}"]
+----
+include::../../unittest/test1/common.cfg[]
+----
+
+[#configuring_the_database_schemas]
+== Configuring the database schemas
+
+Each of the `db1` and `db2` objects contains a `table` object that
+specifies the table being used by that server.
+The `table` object contains the following members:
+
+`name`::
+The name of the table.
++
+include::underlying_name_fragment.adoc[]
+
+`columns`::
+An array of column specifiers.
+
+`linking_column`::
+The name of the linking column.
+This must be one of the names that appears in the `columns` array.
+Different tables do not need to have the same name for the same linking
+column.
+
+A column specifier is an object that contains the following:
+
+`name`::
+The name of the column.
++
+include::underlying_name_fragment.adoc[]
+
+`domain`::
+An optional array of strings that specifies the list of possible values
+that this column may take.
+The list does not need to exhaustive.
+
+`scale`::
+An optional nonnegative integer that specifies how many decimal digits
+to use for this column.
+The default is 0.
+This has no effect on non-numeric columns.
+
+[#configuring_the_linking_column]
+== Configuring the linking column
+
+The linking column is the column that will be used in the condition of
+the inner join.
+For example, the inner join that would be performed with the sample
+lexicon is
+`StudentDB INNER JOIN IncomeDB ON StudentDB.CaseID = IncomeDB.CaseID`.
+
+The `linking_column` members specify which column is the linking column
+on each of the DB1 and DB2 servers.
+The linking column does not need to have the same name on both servers.
+
+The underlying database type of the linking column is permitted to be
+any integer or string type on each of the DB1 and DB2 servers.
+The DB1 and DB2 servers will fail to start if any other type is used.
+For string types, U+0000 code points are not supported, and the servers
+will abort the query if they encounter any such code points.
+
+[WARNING]
+====
+If the underlying database type of the linking column is an integer type
+on one of the DB1 and DB2 servers but a string type on the other, the
+behavior of the entire PULSAR-VLDS system is undefined.
+====
+
+The `linking_column_size` member specifies the number of bytes to use to
+store linking column values.
+If you set `linking_column_size` too small, the DB1 and DB2 servers will
+abort a query if they encounter a linking column value that is too large
+to fit into that number of bytes.
+If you set `linking_column_size` too large, performance may be
+negatively impacted, as the servers will be sending superfluous data.
+
+If the underlying database type of the linking column is an stem:[n]-bit
+signed integer type on the DB1 server and an stem:[n']-bit signed
+integer type on the DB2 server, you should generally set
+`linking_column_size` to stem:[\max(n,n')/8].
+However, if you know that all linking column values across both servers
+are within the range stem:[[-2^{k-1}, 2^{k-1}-1]], you can instead set
+`linking_column_size` to stem:[\lceil k/8 \rceil].
+A smaller value may improve performance.
+
+.{empty}
+[example]
+====
+If the DB1 and DB2 servers are both using SQL Server and the underlying
+database type of the linking column is `BIGINT` on both servers, you
+should set `linking_column_size` to stem:[\max(64,64)/8 = 8], as
+`BIGINT` is a 64-bit signed integer on SQL Server.
+However, if you know that all linking column values across both servers
+are within the range stem:[[-2^{38}, 2^{38}-1]], you can instead set
+`linking_column_size` to stem:[\lceil 39/8 \rceil = 5], which may
+improve performance.
+====
+
+If the underlying database type of the linking column is any string type
+on both servers and all code points across both servers are within the
+range [U+0001, U+00FF], you should set `linking_column_size` to the
+length, in code points, of the longest string.
+You should also set `linking_column_unicode` to `false` so that the
+strings will be transferred using the trivial single-byte encoding.
+
+If the underlying database type of the linking column is any string type
+on both servers and any code points on either server are beyond U+00FF,
+you should set `linking_column_size` to the length, in UTF-16 code
+units, of the longest string.
+You should also set `linking_column_unicode` to `true` so that the
+strings will be transferred using UTF-16.
+
+.{empty}
+[example]
+====
+If the underlying linking column is any string type on both servers, all
+strings are ASCII, and the longest string is 12 characters long, you
+should set `linking_column_size` to 12 and `linking_column_unicode` to
+`false`.
+====
+
+//

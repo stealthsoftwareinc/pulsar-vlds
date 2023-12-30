@@ -1,0 +1,17 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "a9e7d9b118c29c59209daf4dfafd9045",
+    "sha1": "cf64f7ab58223d38a4d232b65f76cb0a4f0fe4b3",
+    "sha224": "8443f968d0e7d3fb246240703619407264edb04c103e349b4ca36149",
+    "sha256": "ff9d052513d9313e7e3304496eae2d6ec50acb06650ac0971a8f5c466bfd3861",
+    "sha384": "4490d963c05cd0eb1965126cd3358d92ef862ae6440f807e7a8b3f5d704a9a019b436c5ce021c4e2d4b4da3693c1c53e",
+    "sha512": "45d2c5e3fbeabf19e87084a1844c442610797125eebda28f4f708d1f1220b90b7e2ce8bf4ef83753ed34560b3bdacdb8cfb4e2f6204514121e3a8c48ffb9c669"
+  },
+
+  "urls": [
+  ]
+
+}

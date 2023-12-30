@@ -1,0 +1,18 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "d88a0d01860bbb47fbe18b325027ece7",
+    "sha1": "1706252bee382887a80a79810d6273707ba78069",
+    "sha224": "0685b77b580da43024199d072ff30305ae0643f903f12bea47a26f33",
+    "sha256": "c04303c145b5c4ec20c24340d60f2a6a193aa593b70a1c7b98a9071bf6715227",
+    "sha384": "e99c267e7ad43bda92cadd585c0d068fb39d8b5a54c0b84e365c739c88983906db62a2decf0b4abdc18e9a0e9e6ec2fa",
+    "sha512": "969dcbf8b891fd59f82c2fa1a50faa4b0d0d8be078daa7739352b4ec40681b2b82b6372400f5a440c94ee30962133c94c7dd70ff589629c44b470668a83afe74"
+  },
+
+  "urls": [
+    "https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder@2.6.0/dist/css/query-builder.default.min.css"
+  ]
+
+}

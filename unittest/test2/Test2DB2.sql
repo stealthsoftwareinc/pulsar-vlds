@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS Test2DB;
+CREATE TABLE Test2DB.Company2DB (
+CustomerID CHAR(6) PRIMARY KEY NOT NULL,
+Lifetime_Spending DECIMAL(10,2) UNSIGNED,
+Monthly_Spending DECIMAL(10,2) UNSIGNED,
+Rewards_Savings INT UNSIGNED);
+
+INSERT INTO Test2DB.Company2DB (CustomerID, Lifetime_Spending,Monthly_Spending,Rewards_Savings) VALUES
+("000001",1500.31,47.19,1600),
+("000003",70.00,0.00,128),
+("000005",6233.19,6233.19,6500);

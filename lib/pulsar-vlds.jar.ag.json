@@ -1,0 +1,19 @@
+{
+  "autogen_handler": "autogen_ajh_java_library",
+
+  "dst": "lib/pulsar-vlds.jar",
+  "jardeps": [
+    "build-aux/downloads/bcpkix-jdk15on-1.69.jar",
+    "build-aux/downloads/bcprov-jdk15on-1.69.jar",
+    "build-aux/downloads/bcutil-jdk15on-1.69.jar",
+    "build-aux/downloads/json-20210307.jar",
+    "build-aux/downloads/mssql-jdbc-9.4.0.jre8.jar",
+    "build-aux/downloads/mysql-connector-java-8.0.17.jar",
+    "build-aux/downloads/netty-all-4.1.65.Final.jar",
+    "build-aux/downloads/postgresql-42.2.6.jar",
+    "build-aux/downloads/sqlite-jdbc-3.36.0.1.jar",
+    "sst.jar"
+  ],
+  "package": "com.stealthsoftwareinc.pulsarvlds",
+  "sourcepath": "src"
+}

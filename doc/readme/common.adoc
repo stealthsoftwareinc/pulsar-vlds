@@ -1,0 +1,63 @@
+//
+// Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+//
+// The above copyright notice and this permission notice (including
+// the next paragraph) shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// SPDX-License-Identifier: MIT
+//
+
+//
+// The following files are similar:
+//
+//       doc/readme/common.adoc
+//       doc/pages/_includes/common.liquid
+//
+// If you edit one of these files, you may need to edit the other(s) as
+// well.
+//
+
+//
+// The readme_diagrams attribute can be either unset, set to the empty
+// string, or set to any nonempty string. Unset means diagrams are not
+// being generated, the empty string means diagrams are being generated
+// for the distribution archive, and any nonempty string means diagrams
+// are being generated for the source repository.
+//
+
+ifdef::readme_diagrams[]
+ifeval::["{readme_diagrams}" != ""]
+:in_source_repo:
+endif::[]
+endif::[]
+ifndef::readme_diagrams[]
+:in_source_repo:
+endif::[]
+
+ifdef::in_source_repo[]
+include::config_source.adoc[]
+endif::[]
+ifndef::in_source_repo[]
+include::config.adoc[]
+endif::[]
+
+//

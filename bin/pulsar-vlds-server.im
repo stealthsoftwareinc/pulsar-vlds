@@ -1,0 +1,14 @@
+#! /bin/sh -
+
+USE_BUILD_TREE=1
+readonly USE_BUILD_TREE
+export USE_BUILD_TREE
+
+wrappee='{@}abs_builddir{@}/bin/pulsar-vlds-server.wrappee/pulsar-vlds-server'
+readonly wrappee
+
+case $# in 0)
+  exec "$wrappee"
+;; *)
+  exec "$wrappee" "$@"
+esac

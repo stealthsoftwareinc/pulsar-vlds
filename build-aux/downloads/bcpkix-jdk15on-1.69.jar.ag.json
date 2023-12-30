@@ -1,0 +1,22 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "c6f7fe841c62cbbeeede7510fe8d72ee",
+    "sha1": "45c36fb72fafb0b688c6af795e6cc803f6f79ee5",
+    "sha224": "daabf0a298cbd421f21bf7c682b313abc433d4242a3bec9a09ba4113",
+    "sha256": "408376d17aaa8789e7acd055fe404289a11fa335fd7c68a75329049fb7d28ed2",
+    "sha384": "9daf985d6db451f013058054289131706f88ce215c70cc398ec675a376766000dc19c16fab837288b83b76251b5043c9",
+    "sha512": "2ccc713292ae88eaa20ab3053c136226a03a383c21b6ec21a221042346309345e16c443fa481c8b5f0241519d750480d11c946f6ae3bcd7660159cd3f18e9e21"
+  },
+
+  "urls": [
+    "https://repo1.maven.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.69/bcpkix-jdk15on-1.69.jar",
+    "https://repo.maven.apache.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.69/bcpkix-jdk15on-1.69.jar",
+    "https://repo.jfrog.org/artifactory/repo1/org/bouncycastle/bcpkix-jdk15on/1.69/bcpkix-jdk15on-1.69.jar",
+    "https://repo.jenkins-ci.org/repo1/org/bouncycastle/bcpkix-jdk15on/1.69/bcpkix-jdk15on-1.69.jar",
+    "https://www.bouncycastle.org/download/bcpkix-jdk15on-169.jar"
+  ]
+
+}

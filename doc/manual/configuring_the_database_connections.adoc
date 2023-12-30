@@ -1,0 +1,100 @@
+//
+// Copyright (C) 2018-2023 Stealth Software Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+//
+// The above copyright notice and this permission notice (including
+// the next paragraph) shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// SPDX-License-Identifier: MIT
+//
+
+[#configuring_the_database_connections]
+= Configuring the database connections
+
+Each of the DB1 and DB2 servers must be able to connect to its
+corresponding database.
+The database connection settings are specified by the
+`database_connection` object in the configuration file.
+
+MySQL::
++
+.Sample database connection settings for MySQL
+[source,subs="{subs_source}"]
+----
+{
+  "database_connection": {
+    "type": "mysql",
+    "host": "127.0.0.1",
+    "port": 3306,
+    "username": "pulsar",
+    "password": "stealth",
+    "database": "higher_ed"
+  }
+}
+----
+
+SQLite::
++
+.Sample database connection settings for SQLite
+[source,subs="{subs_source}"]
+----
+{
+  "database_connection": {
+    "type": "sqlite",
+    "file": "higher_ed.sqlite3"
+  }
+}
+----
++
+* {empty}
+If a relative path is given for `file`, it is taken relative to the
+working directory from which the server was run.
++
+* {empty}
+Backslash characters must be escaped inside JSON strings, which is
+particularly relevant on Windows.
+For example, you would need to specify
+`"file": "C:\\data\\higher_ed.sqlite3"`
+instead of
+`"file": "C:\data\higher_ed.sqlite3"`.
+
+SQL Server::
++
+.Sample database connection settings for SQL Server
+[source,subs="{subs_source}"]
+----
+{
+  "database_connection": {
+    "type": "sqlserver",
+    "host": "127.0.0.1",
+    "port": 1433,
+    "username": "pulsar",
+    "password": "stealth",
+    "database": "higher_ed"
+  }
+}
+----
++
+* {empty}
+{Windows_Authentication} can be enabled by omitting the `username` and
+`password` members.
+
+//

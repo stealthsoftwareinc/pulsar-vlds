@@ -1,0 +1,19 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "7f89537eaf606bff49f5cc1a7c24dbca",
+    "sha1": "b0972fdcce82fd583d4c2ccc3f2e3df7404a19d0",
+    "sha224": "9e49dd956a009eab41b7b3e3064be219a02f7fb7cd20d34e07aba433",
+    "sha256": "6d92dfc1700fd38cd130ad818e23bc8aef697f815b2ea5face2b5dfad22f2e11",
+    "sha384": "1d23317114d1c6737e05d83425d6f160aad385e70e2ae1f9cc2628b65480729d7e73cc66c937bd19883597d6baf69b2e",
+    "sha512": "0e8a7fbd6de23ad6b27ab95802a0a0915af6693af612bc304d83af445529ce5d95842309ca3405d10f538d45c8a3a261b8cff78b4bd512dd9effb4109a71d0ab"
+  },
+
+  "urls": [
+    "https://raw.githubusercontent.com/twbs/bootstrap/v3.4.1/dist/css/bootstrap.min.css",
+    "https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+  ]
+
+}

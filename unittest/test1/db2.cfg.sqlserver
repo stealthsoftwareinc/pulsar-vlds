@@ -1,0 +1,10 @@
+{
+  "database_connection": {
+    "type": "sqlserver",
+    "host": "127.0.0.1",
+    "port": "1433",
+    "username": "Test1DB2User",
+    "password": "password",
+    "database": "Test1DB2"
+  }
+}

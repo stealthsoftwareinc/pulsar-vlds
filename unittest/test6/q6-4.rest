@@ -1,0 +1,1 @@
+/query?DB1Col=Flight+Date&DB2Col=Date+Nights&DB2Condition1Col=DB2%2EPoints&DB2Condition1Op=IS_NULL&Condition2Rel=OR

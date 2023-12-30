@@ -1,0 +1,10 @@
+{
+  "numrows": 4,
+  "colnames": ["CaseID", "School", "Sex", "Quart", "Inc_Year"],
+  "data": [
+    ["123000", "1", "1", null, null]
+    ,["124000", "1", "2", "2", "2012"]
+    ,["125000", "1", "1", null, null]
+    ,["123456", "5", "2", null, null]
+  ]
+}

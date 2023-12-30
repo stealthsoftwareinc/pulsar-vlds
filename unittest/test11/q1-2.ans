@@ -1,0 +1,10 @@
+{
+  "numrows": 4, 
+  "colnames": ["StudentDB.Sex", "COUNT(*)"], 
+  "data": [
+    ["1", "2"]
+    , ["2", "2"]
+    , ["3", "0"]
+    , [null, "1"]
+  ]
+}

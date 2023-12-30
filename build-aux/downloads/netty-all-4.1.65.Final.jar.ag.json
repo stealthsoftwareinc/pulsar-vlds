@@ -1,0 +1,21 @@
+{
+
+  "handler": "sst_ajh_download",
+
+  "hashes": {
+    "md5": "6b1836a9748a74a68fb48e9151006c2f",
+    "sha1": "d9b060190c20772eb05f6f98d30f5fdb7077f317",
+    "sha224": "caa41b557ee4ec98cd6528fe9a074eb24856a2628e5caeead5391724",
+    "sha256": "e6cdae2b23e410b35128dac651b954aedd583bc10959a1e702c7dba7ac850d0e",
+    "sha384": "2ea03080b0f74e5caea2aa064c7bbd987af541e34f1928c97eab1a2632607080ec994e56573f647eeee776da8f6be020",
+    "sha512": "9474a419922c482d03b3cf09058841db4503db45315d036d1e998cc1d0a5c2b5cce9d67a579b3dd2ec1b40f3fce2344fc2a499417b17af12a1950f27eecbf9db"
+  },
+
+  "urls": [
+    "https://repo1.maven.org/maven2/io/netty/netty-all/4.1.65.Final/netty-all-4.1.65.Final.jar",
+    "https://repo.maven.apache.org/maven2/io/netty/netty-all/4.1.65.Final/netty-all-4.1.65.Final.jar",
+    "https://repo.jfrog.org/artifactory/repo1/io/netty/netty-all/4.1.65.Final/netty-all-4.1.65.Final.jar",
+    "https://repo.jenkins-ci.org/repo1/io/netty/netty-all/4.1.65.Final/netty-all-4.1.65.Final.jar"
+  ]
+
+}
